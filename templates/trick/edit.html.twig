@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ trick.title }}{% endblock %}
+
+{% block body %}
+    <!-- Masthead-->
+    <header class="masthead">
+        <div class="container">
+            <div class="masthead-subheading">Welcome To Our Studio! (edition)</div>
+            <div class="masthead-heading text-uppercase">{{ trick.title }}</div>
+            <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
+        </div>
+    </header>
+    <!-- Services-->
+    <section class="page-section" id="services">
+        <div class="container">
+            <form method="post">
+                Titre
+                <input type="text" name="title" value="{{ trick.title }}"><br>
+                Slug
+                <input type="text" name="slug" value="{{ trick.slug }}"><br>
+                Description
+                <input type="text" name="description" value="{{ trick.description }}"><br>
+                Content
+                <input type="text" name="content" value="{{ trick.content }}"><br><br>
+
+                <input type="submit" name="submit" value="Enregistrer">
+            </form>
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">{{ trick.title }}</h2>
+                <h3 class="section-subheading text-muted">{{ trick.description }}</h3>
+            </div>
+            <div class="row text-center flex">
+                <p>Crée le {{ trick.createdAt | date('d/m/Y') }} à {{ trick.createdAt | date('H:i') }}<br>
+                    Mis à jour le {{ trick.updatedAt | date('d/m/Y') }} à {{ trick.updatedAt | date('H:i') }}</p>
+            </div>
+            <div class="row text-center mt-5">
+                <p>{{ trick.content }}</p>
+            </div>
+            <div class="row text-center mt-5">
+                Images / Videos
+            </div>
+        </div>
+    </section>
+{% endblock %}

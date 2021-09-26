@@ -3,18 +3,38 @@
 {% block title %}Homepage{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Homepage</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/ocp6-dev/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/ocp6-dev/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <!-- Masthead-->
+    <header class="masthead">
+        <div class="container w-75 ms-auto me-0">
+            <div class="masthead-subheading">Welcome To Our Studio!</div>
+            <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
+            <a class="btn btn-primary btn-xl text-uppercase" href="#tricks">Parcourir les tricks</a>
+        </div>
+    </header>
+    <section class="page-section bg-light" id="tricks">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Tricks</h2>
+                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            </div>
+            <div class="row">
+                {% for trick in tricks %}
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <div class="trick-item">
+                            <a class="trick-link" href="{{ path('trick', {'slug':trick.slug}) }}">
+                                <div class="trick-hover">
+                                    <div class="trick-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="/assets/img/portfolio/{{ trick.id }}.jpg" alt="..."/>
+                            </a>
+                            <div class="trick-caption">
+                                <div class="trick-caption-heading">{{ trick.title }}</div>
+                                <div class="trick-caption-subheading text-muted">{{ trick.description }}</div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
 {% endblock %}

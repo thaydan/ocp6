@@ -18,6 +18,7 @@ class HomeController extends AbstractController
         $tricks = $repo->findAll();
 
         return $this->render('home/index.html.twig', [
+            'isHeaderTransparent' => true,
             'tricks' => $tricks
         ]);
     }

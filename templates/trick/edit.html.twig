@@ -2,6 +2,8 @@
 
 {% block title %}{{ trick.title }}{% endblock %}
 
+{% form_theme formTrick 'bootstrap_5_layout.html.twig' %}
+
 {% block body %}
     <!-- Masthead-->
     <header class="masthead">
@@ -14,18 +16,7 @@
     <!-- Services-->
     <section class="page-section" id="services">
         <div class="container">
-            <form method="post">
-                Titre
-                <input type="text" name="title" value="{{ trick.title }}"><br>
-                Slug
-                <input type="text" name="slug" value="{{ trick.slug }}"><br>
-                Description
-                <input type="text" name="description" value="{{ trick.description }}"><br>
-                Content
-                <input type="text" name="content" value="{{ trick.content }}"><br><br>
-
-                <input type="submit" name="submit" value="Enregistrer">
-            </form>
+            {{ form(formTrick) }}
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">{{ trick.title }}</h2>
                 <h3 class="section-subheading text-muted">{{ trick.description }}</h3>

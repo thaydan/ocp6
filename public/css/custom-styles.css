@@ -1,11 +1,60 @@
+:root {
+    --background-body: rgb(248 249 250);
+    --background-header: #2260c3;
+}
+
+body {
+    background-color: var(--background-body);
+}
+
 header.masthead {
     height: 100vh;
     padding-top: 41vh;
 }
 
-#mainNav.navbar-shrink {
-    background-color: #2260c3;
+label {
+    margin-bottom: 8px;
 }
+
+input {
+    margin-bottom: 16px;
+}
+
+#mainNav {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: var(--background-header);
+}
+
+#mainNav.navbar-transparent {
+    background-color: transparent;
+}
+
+#mainNav .navbar-toggler {
+    background-color: #212529;
+}
+
+#mainNav .navbar-collapse {
+    background-color: var(--background-header);
+    padding: 0 16px;
+    margin: 4px -12px 0 -12px;
+    text-align: center;
+}
+
+#mainNav.navbar-shrink {
+    background-color: var(--background-header);
+}
+
+@media (min-width: 992px)  {
+    #mainNav .navbar-collapse {
+        background-color: transparent;
+    }
+}
+
+.page-section h2.section-heading, .page-section .section-heading.h2 {
+    font-size: 2rem;
+}
+
 
 #login-form {
     max-width: 600px;
@@ -57,7 +106,7 @@ header.masthead {
     font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-.trick-page-header .container {
+#trick-header .container {
     text-align: center;
     color: #fff;
     background-image: url(../assets/img/header-bg.jpg);

@@ -4,6 +4,7 @@ twig:
     globals:
         ga_tracking: 'UA-xxxxx-x'
         isHeaderTransparent: false
+        upload_directory: '/uploads'
 
 when@test:
     twig:

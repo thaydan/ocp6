@@ -3,7 +3,9 @@
 namespace App\DataFixtures;
 
 use App\Entity\Comment;
+use App\Entity\Group;
 use App\Entity\Trick;
+use App\Entity\TrickImage;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -21,8 +23,11 @@ class TrickFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $j = 1;
+        $tricks = [];
 
         for ($i = 1; $i <= 10; $i++) {
+            //var_dump($trickImage);
+
             $trick = new Trick();
             $trick->setTitle("Titre du Trick $i")
                 ->setSlug("trick-$i")
@@ -32,9 +37,17 @@ class TrickFixtures extends Fixture
                 ->setUpdatedAt(new \DateTimeImmutable());
             $manager->persist($trick);
 
+            $trickImage = (new TrickImage())
+                ->setTitle("Image $i")
+                ->setFilename("/img/$i.jpg")
+                ->setTrick($trick);
+            $manager->persist($trickImage);
+
+            $trick->setFeaturedImage($trickImage);
+            $manager->persist($trick);
+
             for ($j = $j; $j <= 4; $j++) {
                 $user = new User();
-                var_dump("email$j@gmail.com");
                 $user->setEmail("email$j@gmail.com")
                     ->setPassword($this->userPasswordHasher->hashPassword($user, "pass$j"))
                     ->setFirstName("FirstName$j")
@@ -56,6 +69,16 @@ class TrickFixtures extends Fixture
                 $manager->persist($comment1);
                 $manager->persist($comment2);
             }
+
+            $tricks[] = $trick;
+        }
+
+
+        $groups = ['Grabs', 'Rotations', 'Flips', 'Rotations désaxées', 'Slides', 'One foot', 'Old school'];
+        for ($i = 0; $i < count($groups); $i++) {
+            $group = new Group();
+            $group->setTitle($groups[$i])->addTrick($tricks[$i]);
+            $manager->persist($group);
         }
 
         $manager->flush();

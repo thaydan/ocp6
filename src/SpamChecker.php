@@ -34,9 +34,9 @@ class SpamChecker extends AbstractController
                 'comment_author' => implode(" ", [
                     $user->getFirstName(),
                     $user->getLastName()
-                ]),/*
-                'comment_author_email' => $user->getEmail(),*/
-                'comment_author_email' => 'akismet-guaranteed-spam@example.com',
+                ]),
+                'comment_author_email' => $user->getEmail(),
+                /*'comment_author_email' => 'akismet-guaranteed-spam@example.com',*/
                 'comment_content' => $comment->getComment(),
                 'comment_date_gmt' => $comment->getCreatedAt()->format('c'),
                 'blog_lang' => 'fr',
@@ -46,8 +46,7 @@ class SpamChecker extends AbstractController
         ]);
 
         $headers = $response->getHeaders();
-        var_dump($headers);
-        die();
+        dd($response->getContent());
         if ('discard' === ($headers['x-akismet-pro-tip'][0] ?? '')) {
             return 2;
         }

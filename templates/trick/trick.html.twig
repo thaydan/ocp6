@@ -4,7 +4,7 @@
 
 {% block body %}
     <section id="trick-header" class="page-section mt-4">
-        <div class="container">
+        <div class="container" style="background-image: url({{ image(trick.featuredImage) }})">
             <h1 class="masthead-heading text-uppercase">{{ trick.title }}</h1>
         </div>
     </section>
@@ -86,6 +86,14 @@
         </div>
     </section>
 
+    <section class="page-section">
+        <div class="container">
+            {% for video in trick.videos %}
+                <div><a href="{{ video.url }}" target="_blank">{{ video.title }}</a></div>
+            {% endfor %}
+        </div>
+    </section>
+
     <!-- Details -->
     <section class="page-section">
         <div class="container">
@@ -103,6 +111,25 @@
                 <span>Mis à jour le {{ trick.updatedAt | date('d/m/Y') }} à {{ trick.updatedAt | date('H:i') }}</span>
             </div>
         </div>
+        <div class="container w-50 m-auto mt-3 text-center">
+            {% if app.user %}
+                <a href="{{ path('trick_edit', {'slug':trick.slug}) }}" class="btn btn-primary mx-auto d-block w-25">Editer le Trick</a>
+            {% else %}
+                Connectez-vous pour éditer le trick. <a href="{{ path('app_login') }}">Se connecter</a>
+            {% endif %}
+        </div>
+    </section>
+    <section class="page-section">
+        <div class="container w-50 m-auto text-center">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase mb-5">Ajouter un commentaire</h2>
+            </div>
+            {% if app.user %}
+                {{ form(formComment) }}
+            {% else %}
+                Vous devez être connecté pour laisser un commentaire. <a href="{{ path('app_login') }}">Se connecter</a>
+            {% endif %}
+        </div>
     </section>
     <section class="page-section">
         <div class="container w-50 m-auto text-center">
@@ -115,11 +142,6 @@
                     <div class="comment-date">{{ comment.createdAt | date('d/m/Y') }}</div>
                 </div>
             {% endfor %}
-        </div>
-    </section>
-    <section class="page-section">
-        <div class="container w-50 m-auto text-center">
-            {{ form(formComment) }}
         </div>
     </section>
 

@@ -13,6 +13,9 @@ class LoginController extends AbstractController
      */
     public function signup(): Response
     {
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('home');
+        }
         return $this->render('login/signup.html.twig', [
             'controller_name' => 'LoginController',
         ]);

@@ -56,7 +56,7 @@ class Trick
 
     /**
      * @ORM\OneToOne(targetEntity=TrickImage::class, cascade={"persist", "remove"}, mappedBy="trick")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $featuredImage;
 
@@ -71,9 +71,9 @@ class Trick
     private $videos;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Group::class, mappedBy="trick")
+     * @ORM\ManyToOne(targetEntity=Group::class, inversedBy="tricks")
      */
-    private $groups;
+    private $group;
 
 
     public function __construct()
@@ -81,9 +81,7 @@ class Trick
         $this->comment = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->videos = new ArrayCollection();
-        $this->groups = new ArrayCollection();
     }
-
 
 
     public function getId(): ?int
@@ -270,30 +268,14 @@ class Trick
         return $this;
     }
 
-    /**
-     * @return Collection|Group[]
-     */
-    public function getGroups(): Collection
+    public function getGroup(): ?Group
     {
-        return $this->groups;
+        return $this->group;
     }
 
-    public function addGroup(Group $group): self
+    public function setGroup(Group $group): self
     {
-        if (!$this->groups->contains($group)) {
-            $this->groups[] = $group;
-            $group->addTrick($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGroup(Group $group): self
-    {
-        if ($this->groups->removeElement($group)) {
-            $group->removeTrick($this);
-        }
-
+        $this->group = $group;
         return $this;
     }
 }

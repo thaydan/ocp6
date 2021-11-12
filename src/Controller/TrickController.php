@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,18 +19,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TrickController extends AbstractController
 {
-    /**
-     * @Route("/tricks", name="tricks")
-     */
-    public function tricks(TrickRepository $trickRepository): Response
-    {
-        $tricks = $trickRepository->findAll();
-
-        return $this->render('trick/tricks.html.twig', [
-            'tricks' => $tricks
-        ]);
-    }
-
     /**
      * @Route("/trick/new", name="trick_new")
      * @Route("/trick/{slug}/edit", name="trick_edit")
@@ -89,7 +78,7 @@ class TrickController extends AbstractController
             /** @var UploadedFile $imageFile */
             /*$imageFile = $form->get('image')->getData();
             if ($imageFile) {
-                $brochureFileName = $fileUploader->upload($imageFile);
+                $brochureFileName = $fileUploader->uploads($imageFile);
                 $product->setBrochureFilename($brochureFileName);
             }*/
         }
@@ -109,8 +98,12 @@ class TrickController extends AbstractController
 
         $newComment = new Comment();
         $formComment = $this->createFormBuilder($newComment)
-            ->add('comment')
-            ->add('submit', SubmitType::class)
+            ->add('comment', TextType::class, [
+                'label' => false
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Envoyer'
+            ])
             ->getForm();
 
         $formComment->handleRequest($request);

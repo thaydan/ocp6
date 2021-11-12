@@ -16,7 +16,7 @@ class TrickImageType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'label'=> "Titre de l'image",
-                'required' => false
+                'required' => true
             ])
             ->add('filename', TextType::class, [
                 'attr' => ['readonly' => true],

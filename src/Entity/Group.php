@@ -26,13 +26,18 @@ class Group
     private $title;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Trick::class, inversedBy="groups")
+     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="group")
      */
-    private $trick;
+    private $tricks;
 
     public function __construct()
     {
-        $this->trick = new ArrayCollection();
+        $this->tricks = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 
     public function getId(): ?int
@@ -55,15 +60,15 @@ class Group
     /**
      * @return Collection|Trick[]
      */
-    public function getTrick(): Collection
+    public function getTricks(): Collection
     {
-        return $this->trick;
+        return $this->tricks;
     }
 
     public function addTrick(Trick $trick): self
     {
-        if (!$this->trick->contains($trick)) {
-            $this->trick[] = $trick;
+        if (!$this->tricks->contains($trick)) {
+            $this->tricks[] = $trick;
         }
 
         return $this;
@@ -71,7 +76,7 @@ class Group
 
     public function removeTrick(Trick $trick): self
     {
-        $this->trick->removeElement($trick);
+        $this->tricks->removeElement($trick);
 
         return $this;
     }

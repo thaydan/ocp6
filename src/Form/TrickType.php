@@ -8,6 +8,7 @@ use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -40,7 +41,6 @@ class TrickType extends AbstractType
             ])
             ->add('videos', CollectionType::class, [
                 'entry_type' => VideoType::class,
-                'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
@@ -48,6 +48,7 @@ class TrickType extends AbstractType
                     'class' => 'collection'
                 ],
             ])
+            ->add('group')
             ->add('cancel', SubmitType::class, [
                 'label' => 'Annuler'
             ])

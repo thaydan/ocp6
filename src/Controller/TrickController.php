@@ -4,29 +4,21 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Trick;
+use App\Form\TrickType;
 use App\Repository\TrickRepository;
 use App\SpamChecker;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TrickController extends AbstractController
 {
-    /**
-     * @Route("/tricks", name="tricks")
-     */
-    public function tricks(TrickRepository $trickRepository): Response
-    {
-        $tricks = $trickRepository->findAll();
-
-        return $this->render('trick/tricks.html.twig', [
-            'tricks' => $tricks
-        ]);
-    }
-
     /**
      * @Route("/trick/new", name="trick_new")
      * @Route("/trick/{slug}/edit", name="trick_edit")
@@ -42,19 +34,39 @@ class TrickController extends AbstractController
             $trick = new Trick();
         }
 
-        $form = $this->createFormBuilder($trick)
-            ->add('title')
-            ->add('slug')
-            ->add('description')
-            ->add('content')
-            ->add('submit', SubmitType::class)
-            ->getForm();
+        $originalImages = new ArrayCollection();
+        $originalVideos = new ArrayCollection();
 
+        // Create an ArrayCollection of the current Tag objects in the database
+        foreach ($trick->getImages() as $image) {
+            $originalImages->add($image);
+        }
+        foreach ($trick->getVideos() as $video) {
+            $originalVideos->add($video);
+        }
+
+        $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($form->get('cancel')->isClicked()) {
+                return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
+            }
+
             $trick->setCreatedAt(new \DateTimeImmutable())
                 ->setUpdatedAt(new \DateTimeImmutable());
+
+
+            foreach ($originalImages as $image) {
+                if (false === $trick->getImages()->contains($image)) {
+                    $trick->removeImage($image);
+                }
+            }
+            foreach ($originalVideos as $video) {
+                if (false === $trick->getVideos()->contains($video)) {
+                    $trick->removeVideo($video);
+                }
+            }
 
             $manager->persist($trick);
             $manager->flush();
@@ -62,10 +74,17 @@ class TrickController extends AbstractController
             if ($slug != $request->request->get('slug')) {
                 return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
             }
+
+            /** @var UploadedFile $imageFile */
+            /*$imageFile = $form->get('image')->getData();
+            if ($imageFile) {
+                $brochureFileName = $fileUploader->uploads($imageFile);
+                $product->setBrochureFilename($brochureFileName);
+            }*/
         }
 
         return $this->render('trick/edit.html.twig', [
-            'formTrick' => $form->createView(),
+            'form' => $form->createView(),
             'trick' => $trick,
         ]);
     }
@@ -79,8 +98,12 @@ class TrickController extends AbstractController
 
         $newComment = new Comment();
         $formComment = $this->createFormBuilder($newComment)
-            ->add('comment')
-            ->add('submit', SubmitType::class)
+            ->add('comment', TextType::class, [
+                'label' => false
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Envoyer'
+            ])
             ->getForm();
 
         $formComment->handleRequest($request);
@@ -92,7 +115,7 @@ class TrickController extends AbstractController
 
             $manager->persist($newComment);
 
-            /*$context = [
+            $context = [
                 'user_ip' => $request->getClientIp(),
                 'user_agent' => $request->headers->get('user-agent'),
                 'referrer' => $request->headers->get('referer'),
@@ -100,7 +123,7 @@ class TrickController extends AbstractController
             ];
             if (2 === $spamChecker->getSpamScore($newComment, $context)) {
                 throw new \RuntimeException('Blatant spam, go away!');
-            }*/
+            }
 
             $manager->flush();
         }

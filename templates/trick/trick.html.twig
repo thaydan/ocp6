@@ -4,136 +4,117 @@
 
 {% block body %}
     <section id="trick-header" class="page-section mt-4">
-        <div class="container">
+        <div class="container" style="background-image: url({{ image(trick.featuredImage) }})">
             <h1 class="masthead-heading text-uppercase">{{ trick.title }}</h1>
         </div>
     </section>
 
-    <!-- Medias -->
-    <section class="page-section pt-0" id="portfolio">
-        <div class="container">
-            <div class="text-center">
-                <h2 class="section-heading text-uppercase mb-5">Gallerie</h2>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-sm-4 mb-4">
-                    <!-- Portfolio item 1-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="/assets/img/portfolio/1.jpg" alt="..."/>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-4 mb-4">
-                    <!-- Portfolio item 2-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal2">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="/assets/img/portfolio/2.jpg" alt="..."/>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-4 mb-4">
-                    <!-- Portfolio item 3-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal3">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="/assets/img/portfolio/3.jpg" alt="..."/>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-4 mb-4 mb-lg-0">
-                    <!-- Portfolio item 4-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal4">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="/assets/img/portfolio/4.jpg" alt="..."/>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-4 mb-4 mb-sm-0">
-                    <!-- Portfolio item 5-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal5">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="/assets/img/portfolio/5.jpg" alt="..."/>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-4">
-                    <!-- Portfolio item 6-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal6">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="/assets/img/portfolio/6.jpg" alt="..."/>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Details -->
-    <section class="page-section">
+    <section class="page-section pt-1">
         <div class="container">
-            <div class="text-center">
-                <h2 class="section-heading text-uppercase mb-5">Informations</h2>
-            </div>
-            <div class="text-center">
-                <h3 class="section-subheading text-muted">{{ trick.description }}</h3>
-            </div>
-            <div class="row text-center mt-5">
-                <p>{{ trick.content }}</p>
-            </div>
-            <div class="row text-center">
-                <span>Crée le {{ trick.createdAt | date('d/m/Y') }} à {{ trick.createdAt | date('H:i') }}</span>
-                <span>Mis à jour le {{ trick.updatedAt | date('d/m/Y') }} à {{ trick.updatedAt | date('H:i') }}</span>
-            </div>
-        </div>
-    </section>
-    <section class="page-section">
-        <div class="container w-50 m-auto text-center">
-            <div class="text-center">
-                <h2 class="section-heading text-uppercase mb-5">Discussion</h2>
-            </div>
-            {% for comment in comments %}
-                <div class="comment">
-                    <div class="comment-content">{{ comment.comment }}</div>
-                    <div class="comment-date">{{ comment.createdAt | date('d/m/Y') }}</div>
+            <ul class="nav nav-pills justify-content-center mb-5" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <h2 class="nav-link fs-3 active" id="pills-home-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-gallery"
+                        type="button" role="tab" aria-controls="pills-home" aria-selected="true">GALLERIE
+                    </h2>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <h2 class="nav-link fs-3" id="pills-profile-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-informations"
+                        type="button" role="tab" aria-controls="pills-profile" aria-selected="false">INFORMATIONS
+                    </h2>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <h2 class="nav-link fs-3" id="pills-contact-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-chat"
+                        type="button" role="tab" aria-controls="pills-contact" aria-selected="false">DISCUSSION
+                    </h2>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-gallery" role="tabpanel"
+                     aria-labelledby="pills-home-tab">
+                    <!-- Medias Image -->
+                    <div class="row" id="portfolio">
+                        {% for image in trick.images %}
+                            <div class="col-lg-3 col-sm-4 mb-4">
+                                <!-- Portfolio item 1-->
+                                <div class="portfolio-item">
+                                    <a class="portfolio-link" data-bs-toggle="modal" href="#imageModal{{ image.id }}">
+                                        <div class="portfolio-hover">
+                                            <div class="portfolio-hover-content">
+                                                <i class="fas fa-eye fa-3x"></i></div>
+                                        </div>
+                                        <img class="img-fluid" src="{{ image(image) }}"
+                                             alt="{{ image.title }}"/>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Medias Video -->
+                    <div class="row">
+                        {% for video in trick.videos %}
+                            <div><a href="{{ video.url }}" target="_blank">{{ video.title }}</a></div>
+                        {% endfor %}
+                    </div>
                 </div>
-            {% endfor %}
-        </div>
-    </section>
-    <section class="page-section">
-        <div class="container w-50 m-auto text-center">
-            {{ form(formComment) }}
+                <div class="tab-pane fade" id="pills-informations" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <div class="text-center">
+                        <h3 class="section-subheading text-muted">{{ trick.description }}</h3>
+                    </div>
+                    <div class="row text-center mt-5">
+                        <p>{{ trick.content }}</p>
+                    </div>
+                    <div class="row text-center">
+                        <span>Crée le {{ trick.createdAt | date('d/m/Y') }} à {{ trick.createdAt | date('H:i') }}</span>
+                        <span>Mis à jour le {{ trick.updatedAt | date('d/m/Y') }} à {{ trick.updatedAt | date('H:i') }}</span>
+                    </div>
+                    <div class="row text-center">
+                        Groupes : {{ trick.group }}
+                    </div>
+                    {% if app.user %}
+                        <a href="{{ path('trick_edit', {'slug':trick.slug}) }}"
+                           class="btn btn-primary mx-auto d-block w-25">Editer le Trick</a>
+                    {% else %}
+                        Connectez-vous pour éditer le trick. <a href="{{ path('app_login') }}">Se connecter</a>
+                    {% endif %}
+                </div>
+                <div class="tab-pane fade" id="pills-chat" role="tabpanel" aria-labelledby="pills-contact-tab">
+                    <div class="row w-50 m-auto text-center">
+                        <h4 class="section-heading text-uppercase mb-3">Nouveau commentaire</h4>
+                        {% if app.user %}
+                            {{ form(formComment) }}
+                        {% else %}
+                            <div>Vous devez être connecté pour laisser un commentaire. <a href="{{ path('app_login') }}">Se
+                                    connecter</a></div>
+                        {% endif %}
+                    </div>
+                    <div class="row w-75 m-auto text-center">
+                        <h4 class="section-heading text-uppercase mt-5 mb-3">Derniers messages</h4>
+                        {% for comment in comments %}
+                            <div class="comment">
+                                <div class="comment-content">{{ comment.comment }}</div>
+                                <div class="comment-date">{{ comment.createdAt | date('d/m/Y') }}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Medias Modals-->
     <!-- Medias item 1 modal popup-->
-    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+    {% for key, image in trick.images %}
+    <div class="portfolio-modal modal fade" id="imageModal{{ image.id }}" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="/assets/img/close-icon.svg"
-                                                                          alt="Close modal"/></div>
-                    <div class="modal-title">
-                        Trick 1 - Media 1/18
-                    </div>
+                    <div class="close-modal" data-bs-dismiss="modal">
+                        <i class="fas fa-window-close fa-3x"></i></div>
+                    <div class="modal-title">{{ trick.title }} - Media {{ key + 1 }}/{{ trick.images|length }}</div>
                     <div class="modal-nav">
                         <button class="btn btn-primary"><i class="fas fa-arrow-left"></i></button>
                         <button class="btn btn-primary"><i class="fas fa-arrow-right"></i></button>
@@ -144,21 +125,8 @@
                         <div class="col-lg-8">
                             <div class="modal-body">
                                 <!-- Details-->
-                                <img class="img-fluid d-block mx-auto" src="/assets/img/portfolio/1.jpg" alt="..."/>
-                                <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt
-                                    repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae,
-                                    nostrum, reiciendis facere nemo!</p>
-                                <ul class="list-inline">
-                                    <li>
-                                        <strong>Client:</strong>
-                                        Threads
-                                    </li>
-                                    <li>
-                                        <strong>Category:</strong>
-                                        Illustration
-                                    </li>
-                                </ul>
+                                <img class="img-fluid d-block mx-auto" src="{{ image(image) }}" alt="{{ image.title }}"/>
+                                <p>{{ image.title }}</p>
                             </div>
                         </div>
                     </div>
@@ -166,4 +134,5 @@
             </div>
         </div>
     </div>
+    {% endfor %}
 {% endblock %}

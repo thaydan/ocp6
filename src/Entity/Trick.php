@@ -54,10 +54,35 @@ class Trick
      */
     private $comment;
 
+    /**
+     * @ORM\OneToOne(targetEntity=TrickImage::class, cascade={"persist", "remove"}, mappedBy="trick")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $featuredImage;
+
+    /**
+     * @ORM\OneToMany(targetEntity=TrickImage::class,cascade={"persist"}, mappedBy="trick", orphanRemoval=true)
+     */
+    private $images;
+
+    /**
+     * @ORM\OneToMany(targetEntity=TrickVideo::class,cascade={"persist"}, mappedBy="trick", orphanRemoval=true)
+     */
+    private $videos;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Group::class, inversedBy="tricks")
+     */
+    private $group;
+
+
     public function __construct()
     {
         $this->comment = new ArrayCollection();
+        $this->images = new ArrayCollection();
+        $this->videos = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -74,6 +99,11 @@ class Trick
         $this->title = $title;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 
     public function getSlug(): ?string
@@ -163,6 +193,89 @@ class Trick
             }
         }
 
+        return $this;
+    }
+
+    /**
+     * @return Collection|TrickImage[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(TrickImage $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(TrickImage $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getTrick() === $this) {
+                $image->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFeaturedImage(): ?TrickImage
+    {
+        return $this->featuredImage;
+    }
+
+    public function setFeaturedImage(TrickImage $featuredImage): self
+    {
+        $this->featuredImage = $featuredImage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TrickVideo[]
+     */
+    public function getVideos(): Collection
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(TrickVideo $video): self
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+            $video->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(TrickVideo $video): self
+    {
+        if ($this->videos->removeElement($video)) {
+            // set the owning side to null (unless already changed)
+            if ($video->getTrick() === $this) {
+                $video->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getGroup(): ?Group
+    {
+        return $this->group;
+    }
+
+    public function setGroup(Group $group): self
+    {
+        $this->group = $group;
         return $this;
     }
 }

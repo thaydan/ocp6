@@ -5,14 +5,12 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Trick;
 use App\Form\TrickType;
-use App\Repository\TrickRepository;
 use App\SpamChecker;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,6 +23,10 @@ class TrickController extends AbstractController
      */
     public function edit(Request $request, EntityManagerInterface $manager, Trick $trick = null, $slug = null): Response
     {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $routeName = $request->attributes->get('_route');
         if ($routeName == 'trick_edit' && !$trick) {
             return $this->redirectToRoute('home');
@@ -74,13 +76,6 @@ class TrickController extends AbstractController
             if ($slug != $request->request->get('slug')) {
                 return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
             }
-
-            /** @var UploadedFile $imageFile */
-            /*$imageFile = $form->get('image')->getData();
-            if ($imageFile) {
-                $brochureFileName = $fileUploader->uploads($imageFile);
-                $product->setBrochureFilename($brochureFileName);
-            }*/
         }
 
         return $this->render('trick/edit.html.twig', [

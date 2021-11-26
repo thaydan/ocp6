@@ -25,66 +25,127 @@ class TrickFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $j = 1;
         $tricks = [];
 
-        $trickNames = ['Mute grab', 'Rotation 360°', 'Front Flip', 'Corkscrew', 'Nose Slide', 'One Foot', 'Japan Air', 'Trick 8', 'Trick 9', 'Trick 10'];
+        $tricksFixtures = [
+            [
+                'name' => 'Mute grab', 'img' => 4,
+                'description' => 'Saisie de la carre frontside de la planche entre les deux pieds avec la main avant'
+            ],
+            [
+                'name' => "Rotation 360°", 'img' => 4,
+                'description' => 'Rotation horizontale de 360°'
+            ],
+            [
+                'name' => 'Front Flip', 'img' => 4,
+                'description' => 'Rotation verticale en avant'
+            ],
+            [
+                'name' => 'Corkscrew', 'img' => 2,
+                'description' => 'Rotations désaxées Corkscrew'
+            ],
+            [
+                'name' => 'Nose Slide', 'img' => 2,
+                'description' => "Glisse sur une barre de slide avec l'avant de la planche"
+            ],
+            [
+                'name' => 'One Foot', 'img' => 2,
+                'description' => 'Figure avec un pied décroché de la fixation'
+            ],
+            [
+                'name' => 'Japan Air', 'img' => 1,
+                'description' => ''
+            ],
+            [
+                'name' => 'Trick 8', 'img' => 1,
+                'description' => ''
+            ],
+            [
+                'name' => 'Trick 9', 'img' => 1,
+                'description' => ''
+            ],
+            [
+                'name' => 'Trick 10', 'img' => 1,
+                'description' => ''
+            ],
+            [
+                'name' => 'Trick 11', 'img' => 1,
+                'description' => ''
+            ],
+            [
+                'name' => 'Trick 12', 'img' => 1,
+                'description' => ''
+            ]
+        ];
 
-        for ($i = 1; $i <= 10; $i++) {
-            //var_dump($trickImage);
 
+        for ($i = 0; $i < 10; $i++) {
+            $trickFixture = $tricksFixtures[$i];
+
+            $trickFixture['slug'] = $this->slugger->slug(strtolower(str_replace('°', '', $trickFixture['name'])));
+
+            // add trick
             $trick = new Trick();
-            $trick->setTitle($trickNames[$i-1])
-                ->setSlug("trick-$i")
-                ->setDescription("Description du Trick $i")
+            $trick->setTitle($trickFixture['name'])
+                ->setSlug($trickFixture['slug'])
+                ->setDescription($trickFixture['description'])
                 ->setContent("Contenu du Trick $i")
                 ->setCreatedAt(new \DateTimeImmutable())
                 ->setUpdatedAt(new \DateTimeImmutable());
             $manager->persist($trick);
 
-            $trickImage = (new TrickImage())
-                ->setTitle("Image $i")
-                ->setFilename('fixtures/snowboard-' . strtolower($this->slugger->slug(str_replace('°', '', $trickNames[$i-1]))) . '.jpg')
-                ->setTrick($trick);
-            $manager->persist($trickImage);
+            // add trick images
+            for ($j = 1; $j <= $trickFixture['img']; $j++) {
+                $trickImage = (new TrickImage())
+                    ->setTitle("Image $j")
+                    ->setFilename('fixtures/snowboard-' . $trickFixture['slug'] . "-$j.jpg")
+                    ->setTrick($trick);
+                $manager->persist($trickImage);
 
-            $trick->setFeaturedImage($trickImage);
-            $manager->persist($trick);
-
-            for ($j = $j; $j <= 4; $j++) {
-                $user = new User();
-                $user->setEmail("email$j@gmail.com")
-                    ->setPassword($this->userPasswordHasher->hashPassword($user, "pass$j"))
-                    ->setFirstName("FirstName$j")
-                    ->setLastName("LastName$j")
-                    ->setUsername("Username$j");
-
-                $comment1 = (new Comment())
-                    ->setComment('I ate a normal rock once. It did NOT taste like bacon!')
-                    ->setCreatedAt(new \DateTimeImmutable())
-                    ->setTrick($trick)
-                    ->setUser($user);
-                $comment2 = (new Comment())
-                    ->setComment('I ate a normal rock once. It did NOT taste like bacon!')
-                    ->setCreatedAt(new \DateTimeImmutable())
-                    ->setTrick($trick)
-                    ->setUser($user);
-
-                $manager->persist($user);
-                $manager->persist($comment1);
-                $manager->persist($comment2);
+                // make first image as featured
+                if($j == 1) {
+                    $trick->setFeaturedImage($trickImage);
+                    $manager->persist($trick);
+                }
             }
 
             $tricks[] = $trick;
         }
 
-
+        // add groups and linked tricks
         $groups = ['Grabs', 'Rotations', 'Flips', 'Rotations désaxées', 'Slides', 'One foot', 'Old school'];
         for ($i = 0; $i < count($groups); $i++) {
             $group = new Group();
             $group->setTitle($groups[$i])->addTrick($tricks[$i]);
             $manager->persist($group);
         }
+
+
+        // add users and add linked comments
+        for ($i = 0; $i < 4; $i++) {
+            $user = new User();
+            $user->setEmail("email$i@gmail.com")
+                ->setPassword($this->userPasswordHasher->hashPassword($user, "pass$i"))
+                ->setFirstName("FirstName$i")
+                ->setLastName("LastName$i")
+                ->setUsername("Username$i");
+
+            $comment1 = (new Comment())
+                ->setComment('I ate a normal rock once. It did NOT taste like bacon!')
+                ->setCreatedAt(new \DateTimeImmutable())
+                ->setTrick($tricks[$i])
+                ->setUser($user);
+            $comment2 = (new Comment())
+                ->setComment('I ate a normal rock once. It did NOT taste like bacon!')
+                ->setCreatedAt(new \DateTimeImmutable())
+                ->setTrick($tricks[$i])
+                ->setUser($user);
+
+            $manager->persist($user);
+            $manager->persist($comment1);
+            $manager->persist($comment2);
+        }
+
 
         $manager->flush();
     }

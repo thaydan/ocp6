@@ -2,8 +2,6 @@
 
 {% block title %}{{ trick.title }}{% endblock %}
 
-{% form_theme form 'bootstrap_5_layout.html.twig' %}
-
 {% block body %}
     <section id="trick-header" class="page-section mt-4">
         <div class="container" style="background-image: url({{ image(trick.featuredImage) }})">
@@ -19,16 +17,23 @@
             {{ form_row(form.slug) }}
             {{ form_row(form.description) }}
             {{ form_row(form.content) }}
+            {{ form_row(form.featuredImage) }}
 
 
             <h3>Images</h3>
-            <div class="images" data-index="{{ form.images|length > 0 ? form.images|last.vars.name + 1 : 0 }}"
-                data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
-                {% for image in form.images %}
-                    <div>{{ form_row(image) }}</div>
-                {% endfor %}
+            <div class="container">
+                <div class="images row" data-index="{{ form.images|length > 0 ? form.images|last.vars.name + 1 : 0 }}"
+                     data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
+                    {% for image in form.images %}
+                        <div class="w-25 d-flex flex-column mb-4">{{ form_row(image) }}</div>
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    <div class="w-25 m-auto">
+                        <div class="btn-primary btn add_item_link m-auto mt-3 d-block" data-collection-holder-class="images">Ajouter une image</div>
+                    </div>
+                </div>
             </div>
-            <button type="button" class="btn-primary btn add_item_link" data-collection-holder-class="images">Ajouter une image</button>
 
             <h3>Videos</h3>
             <div class="videos" data-index="{{ form.videos|length > 0 ? form.videos|last.vars.name + 1 : 0 }}"
@@ -47,6 +52,7 @@
             const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
             const item = document.createElement('div');
+            item.classList.add('w-25', 'mb-4')
 
             item.innerHTML = collectionHolder
                 .dataset
@@ -67,6 +73,7 @@
             const removeFormButton = document.createElement('button')
             removeFormButton.classList.add('btn-primary')
             removeFormButton.classList.add('btn')
+            removeFormButton.classList.add('mt-auto')
             removeFormButton.innerText = 'Supprimer'
 
             tagFormLi.append(removeFormButton);

@@ -40,8 +40,11 @@ class AppExtension extends AbstractExtension
 
 
 
-    function generateImageLink(TrickImage $image): string
+    function generateImageLink(?TrickImage $image): string
     {
+        if(!$image) {
+            return '';
+        }
         return $_ENV['UPLOAD_DIRECTORY'] . '/' . $image->getFilename();
     }
 }

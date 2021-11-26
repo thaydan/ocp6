@@ -74,20 +74,17 @@
                     <div class="row text-center">
                         Groupes : {{ trick.group }}
                     </div>
-                    {% if app.user %}
-                        <a href="{{ path('trick_edit', {'slug':trick.slug}) }}"
-                           class="btn btn-primary mx-auto d-block w-25">Editer le Trick</a>
-                    {% else %}
-                        Connectez-vous pour éditer le trick. <a href="{{ path('app_login') }}">Se connecter</a>
-                    {% endif %}
+                    <a href="{{ path('trick_edit', {'slug':trick.slug}) }}"
+                       class="btn btn-primary mx-auto d-block w-25">Editer le Trick</a>
                 </div>
                 <div class="tab-pane fade" id="pills-chat" role="tabpanel" aria-labelledby="pills-contact-tab">
                     <div class="row w-50 m-auto text-center">
-                        <h4 class="section-heading text-uppercase mb-3">Nouveau commentaire</h4>
+                        <h4 class="section-heading text-uppercase mb-3">Nouveau message</h4>
                         {% if app.user %}
                             {{ form(formComment) }}
                         {% else %}
-                            <div>Vous devez être connecté pour laisser un commentaire. <a href="{{ path('app_login') }}">Se
+                            <div>Vous devez être connecté pour laisser un commentaire. <a
+                                        href="{{ path('app_login') }}">Se
                                     connecter</a></div>
                         {% endif %}
                     </div>
@@ -108,31 +105,54 @@
     <!-- Medias Modals-->
     <!-- Medias item 1 modal popup-->
     {% for key, image in trick.images %}
-    <div class="portfolio-modal modal fade" id="imageModal{{ image.id }}" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="close-modal" data-bs-dismiss="modal">
-                        <i class="fas fa-window-close fa-3x"></i></div>
-                    <div class="modal-title">{{ trick.title }} - Media {{ key + 1 }}/{{ trick.images|length }}</div>
-                    <div class="modal-nav">
-                        <button class="btn btn-primary"><i class="fas fa-arrow-left"></i></button>
-                        <button class="btn btn-primary"><i class="fas fa-arrow-right"></i></button>
+        <div class="portfolio-modal modal fade" id="imageModal{{ image.id }}" tabindex="-1" role="dialog"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="close-modal" data-bs-dismiss="modal">
+                            <i class="fas fa-window-close fa-3x"></i></div>
+                        <div class="modal-title">{{ trick.title }} - Media {{ key + 1 }}/{{ trick.images|length }}</div>
+                        <div class="modal-nav">
+                            <button class="btn btn-primary btn-previous">
+                                <a class="portfolio-link" data-bs-toggle="modal" href="#imageModal{{ image.id - 1 }}">
+                                    <i class="fas fa-arrow-left"></i></a></button>
+                            <button class="btn btn-primary btn-next">
+                                <a class="portfolio-link" data-bs-toggle="modal" href="#imageModal{{ image.id + 1 }}">
+                                    <i class="fas fa-arrow-right"></i></a></button>
+                        </div>
                     </div>
-                </div>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <div class="modal-body">
-                                <!-- Details-->
-                                <img class="img-fluid d-block mx-auto" src="{{ image(image) }}" alt="{{ image.title }}"/>
-                                <p>{{ image.title }}</p>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Details-->
+                                    <img class="img-fluid d-block mx-auto" src="{{ image(image) }}"
+                                         alt="{{ image.title }}"/>
+                                    <p>{{ image.title }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        <script>
+            $("div[id^='imageModal']").each(function () {
+                var currentModal = $(this);
+
+                //click next
+                currentModal.find('.btn-next').click(function () {
+                    currentModal.modal('hide');
+                    currentModal.closest("div[id^='imageModal']").nextAll("div[id^='imageModal']").first().modal('show');
+                });
+
+                //click prev
+                currentModal.find('.btn-previous').click(function () {
+                    currentModal.modal('hide');
+                    currentModal.closest("div[id^='imageModal']").prevAll("div[id^='imageModal']").first().modal('show');
+                });
+            });
+        </script>
     {% endfor %}
 {% endblock %}

@@ -11,7 +11,7 @@
             <a class="btn btn-primary btn-xl text-uppercase" href="#tricks">Parcourir les tricks</a>
         </div>
     </header>
-    <section class="page-section" id="tricks">
+    <section class="page-section">
         <div class="container">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Tricks</h2>
@@ -22,9 +22,6 @@
                     <div class="col-lg-4 col-sm-6 mb-4">
                         <div class="trick-item">
                             <a class="trick-link" href="{{ path('trick', {'slug':trick.slug}) }}">
-                                <div class="trick-hover">
-                                    <div class="trick-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
                                 <img class="img-fluid" src="{{ image(trick.featuredImage) }}" alt="..."/>
                             </a>
                             <div class="trick-caption">

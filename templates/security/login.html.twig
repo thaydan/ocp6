@@ -1,14 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
-    <section class="page-section" id="services">
+    <section class="page-section d-flex align-items-center">
         <div class="container">
-            <div class="text-center">
-                <h2 class="section-heading text-uppercase">Login</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-            </div>
             <div class="row text-center">
                 <form method="post" id="login-form">
                     {% if error %}
@@ -21,7 +17,7 @@
                         </div>
                     {% endif %}
 
-                    <h1 class="h3 mb-3 font-weight-normal">Veuillez vous identifier</h1>
+                    <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
                     <label for="inputEmail">E-mail</label>
                     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
                     <label for="inputPassword">Mot de passe</label>
@@ -42,9 +38,8 @@
                     </div>
                     #}
 
-                    <button class="btn btn-lg btn-primary" type="submit">
-                        Se connecter
-                    </button>
+                    <button class="btn btn-lg btn-primary mt-4" type="submit">Se connecter</button>
+                    <p class="mt-5"><a href="{{ path('app_lost_password') }}">Mot de passe oublié</a></p>
                 </form>
             </div>
         </div>

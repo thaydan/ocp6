@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\AccountType;
 use App\Form\LostPasswordType;
 use App\Form\ResetPasswordType;
 use App\Form\SignUpType;
@@ -11,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use LogicException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,7 +39,7 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils, Referer $referer): Response
     {
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            //return $referer->goTo();
+            return $referer->goTo();
         }
         $referer->set();
 
@@ -140,12 +142,12 @@ class SecurityController extends AbstractController
                 ];
                 $tokenEncoded = JWT::encode($payload, $key, 'HS256');
 
-                $resetPasswordLink = $request->getUriForPath($this->generateUrl('app_reset_password', ['token' => $tokenEncoded]));
+                $resetPasswordLink = $request->getUriForPath($this->generateUrl('app_reset_password_token', ['token' => $tokenEncoded]));
                 $email = (new Email())
                     ->from(new Address($_ENV['MAILER_SENDER_EMAIL'], $_ENV['MAILER_SENDER_NAME']))
-                    ->to('rominoudu85@gmail.com')
-                    ->subject('Réinitialisation du mot de passe')
-                    ->text('Sending emails is fun again!')
+                    ->to($userWithThisEmail->getEmail())
+                    ->subject('Réinitialisation de votre mot de passe')
+                    ->text('Réinitialiser mon mot de passe : ' . $resetPasswordLink)
                     ->html('<p><a href="' . $resetPasswordLink . '">Réinitialiser mon mot de passe</a></p>');
                 $mailer->send($email);
                 $lostPasswordConfirmation = true;
@@ -163,19 +165,26 @@ class SecurityController extends AbstractController
 
 
     /**
-     * @Route("/reset-password/{token}", name="app_reset_password")
+     * @Route("/reset-password", name="app_reset_password")
+     * @Route("/reset-password/{token}", name="app_reset_password_token")
      */
-    public function resetPassword(string $token, Request $request, EntityManagerInterface $manager): Response
+    public function resetPassword(?string $token, Request $request, EntityManagerInterface $manager): Response
     {
-        try {
-            $jwt = JWT::decode($token, new Key($_ENV['APP_SECRET'], 'HS256'));
-        } catch (\Exception $e) {
-            return $this->redirectToRoute('home');
+        $user = null;
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $user = $this->getUser();
         }
+        if ($token) {
+            try {
+                $jwt = JWT::decode($token, new Key($_ENV['APP_SECRET'], 'HS256'));
+            } catch (\Exception $e) {
+                return $this->redirectToRoute('home');
+            }
 
-        $user = $this->getDoctrine()->getRepository(User::class)
-            ->findOneBy(['email' => $jwt->email, 'token' => $jwt->token]);
-        if(!$user) {
+            $user = $this->getDoctrine()->getRepository(User::class)
+                ->findOneBy(['email' => $jwt->email, 'token' => $jwt->token]);
+        }
+        if (!$user) {
             return $this->redirectToRoute('home');
         }
 
@@ -186,20 +195,50 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->getDoctrine()->getRepository(User::class)
-                ->findOneBy(['email' => $jwt->email, 'token' => $jwt->token]);
-            if ($user) {
-                $user->setPassword($this->userPasswordHasher->hashPassword($user, $form->get('password')->getData()))
-                    ->setToken(null);
-                $manager->persist($user);
-                $manager->flush();
-                $resetPasswordConfirmation = true;
-            }
+            $user->setPassword($this->userPasswordHasher->hashPassword($user, $form->get('password')->getData()))
+                ->setToken(null);
+            $manager->persist($user);
+            $manager->flush();
+            $resetPasswordConfirmation = true;
         }
 
         return $this->render('security/reset_password.html.twig', [
             'form' => $form->createView(),
             'resetPasswordConfirmation' => $resetPasswordConfirmation,
+            'error' => $error
+        ]);
+    }
+
+
+    /**
+     * @Route("/account", name="app_account")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     */
+    public function account(Request $request, EntityManagerInterface $manager): Response
+    {
+        $error = '';
+        $success = false;
+
+        $user = $this->getUser();
+        $form = $this->createForm(AccountType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userWithSameUsername = $this->getDoctrine()->getRepository(User::class)
+                ->findOneBy(['username' => $form->get('username')->getData()]);
+            if ($user == $userWithSameUsername OR !$userWithSameUsername) {
+                $manager->persist($user);
+                $manager->flush();
+                $success = 'Les modifications ont bien été enregistrées';
+            }
+            else {
+                $error = 'Ce pseudo est déjà utilisé';
+            }
+        }
+
+        return $this->render('security/account.html.twig', [
+            'form' => $form->createView(),
+            'success' => $success,
             'error' => $error
         ]);
     }

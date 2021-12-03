@@ -25,28 +25,3 @@
     </div>
     {% endif %}
 {%- endblock choice_widget_expanded %}#}
-
-
-{%- block form_row -%}
-    {%- if compound is defined and compound -%}
-        {%- set element = 'fieldset' -%}
-    {%- endif -%}
-    {%- set widget_attr = {} -%}
-    {%- if help is not empty -%}
-        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
-    {%- endif -%}
-    {%- set row_class = row_class|default(row_attr.class|default('mb-3')|trim) -%}
-    <{{ element|default('div') }}{% with {attr: row_attr|merge({class: row_class})} %}{{ block('attributes') }}{% endwith %}>
-    {%- if 'form-floating' in row_class -%}
-        {{- form_widget(form, widget_attr) -}}
-        {{- form_label(form) -}}
-    {%- elseif form.vars.type is defined and form.vars.type == 'file' and form.parent.vars.value -%}
-        {{- form_widget(form, widget_attr) -}}
-    {%- else -%}
-        {{- form_label(form) -}}
-        {{- form_widget(form, widget_attr) -}}
-    {%- endif -%}
-    {{- form_help(form) -}}
-    {{- form_errors(form) -}}
-    </{{ element|default('div') }}>
-{%- endblock form_row %}

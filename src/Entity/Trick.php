@@ -6,6 +6,7 @@ use App\Repository\TrickRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OrderBy;
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
@@ -35,11 +36,6 @@ class Trick
     private $description;
 
     /**
-     * @ORM\Column(type="text")
-     */
-    private $content;
-
-    /**
      * @ORM\Column(type="datetime_immutable")
      */
     private $createdAt;
@@ -51,6 +47,7 @@ class Trick
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="trick")
+     * @OrderBy({"createdAt" = "DESC"})
      */
     private $comment;
 
@@ -83,6 +80,11 @@ class Trick
         $this->videos = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->title;
+    }
+
 
     public function getId(): ?int
     {
@@ -99,11 +101,6 @@ class Trick
         $this->title = $title;
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        return $this->title;
     }
 
     public function getSlug(): ?string
@@ -126,18 +123,6 @@ class Trick
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    public function setContent(string $content): self
-    {
-        $this->content = $content;
 
         return $this;
     }
@@ -231,7 +216,7 @@ class Trick
         return $this->featuredImage;
     }
 
-    public function setFeaturedImage(TrickImage $featuredImage): self
+    public function setFeaturedImage(?TrickImage $featuredImage): self
     {
         $this->featuredImage = $featuredImage;
 

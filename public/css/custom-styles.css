@@ -32,6 +32,14 @@ input, textarea {
     margin-bottom: 16px;
 }
 
+.collection fieldset > legend {
+    display: none;
+}
+
+.collection .row {
+    row-gap: 22px;
+}
+
 .form-floating > .form-control:focus ~ label, .form-floating > .form-control:not(:placeholder-shown) ~ label, .form-floating > .form-select ~ label {
     opacity: inherit;
 }
@@ -76,7 +84,7 @@ input, textarea {
     background: #f8fafd;
     border: 1px solid #d2dbe5;
     border-radius: 0.25rem;
-    padding: 20px 6px;
+    padding: 20px 18px;
     margin-bottom: 8px;
 }
 
@@ -103,9 +111,12 @@ input, textarea {
 
 
 .trick-item {
+    display: flex;
+    flex-direction: column;
     max-width: 26rem;
     margin-left: auto;
     margin-right: auto;
+    height: 100%;
 }
 
 .trick-item .trick-link {
@@ -136,6 +147,7 @@ input, textarea {
 }
 
 .trick-item .trick-caption {
+    height: 100%;
     padding: 1.5rem;
     text-align: center;
     background-color: #fff;
@@ -213,4 +225,25 @@ input, textarea {
 
 .modal-content {
     padding-top: 0 !important;
+}
+
+
+#btn-go-to-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: var(--bs-primary);
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+#btn-go-to-top:hover {
+    background-color: #555;
 }

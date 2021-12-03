@@ -33,6 +33,7 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFunction('image', [$this, 'generateImageLink']),
+            new TwigFunction('gravatar', [$this, 'gravatar'], ['is_safe' => ['html']]),
         ];
     }
     /* end initialisation */
@@ -46,5 +47,14 @@ class AppExtension extends AbstractExtension
             return '';
         }
         return $_ENV['UPLOAD_DIRECTORY'] . '/' . $image->getFilename();
+    }
+
+    function gravatar($email): string
+    {
+        if(!$email) {
+            return '';
+        }
+        $hash = md5(strtolower(trim($email)));
+        return '<img src="https://www.gravatar.com/avatar/'. $hash .'?d=mp">';
     }
 }

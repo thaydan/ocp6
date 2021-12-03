@@ -5,9 +5,10 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Trick;
 use App\Form\TrickType;
-use App\SpamChecker;
+use App\Service\SpamChecker;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -20,13 +21,10 @@ class TrickController extends AbstractController
     /**
      * @Route("/trick/new", name="trick_new")
      * @Route("/trick/{slug}/edit", name="trick_edit")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
     public function edit(Request $request, EntityManagerInterface $manager, Trick $trick = null, $slug = null): Response
     {
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $this->redirectToRoute('app_login');
-        }
-
         $routeName = $request->attributes->get('_route');
         if ($routeName == 'trick_edit' && !$trick) {
             return $this->redirectToRoute('home');
@@ -51,17 +49,26 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if($form->get('cancel')->isClicked()) {
+            if ($form->get('cancel')->isClicked()) {
                 return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
             }
 
-            $trick->setCreatedAt(new \DateTimeImmutable())
-                ->setUpdatedAt(new \DateTimeImmutable());
+            if (!$trick->getCreatedAt()) {
+                $trick->setCreatedAt(new \DateTimeImmutable());
+            }
 
+            $trick->setUpdatedAt(new \DateTimeImmutable());
 
             foreach ($originalImages as $image) {
                 if (false === $trick->getImages()->contains($image)) {
+                    if ($image == $trick->getFeaturedImage()) {
+                        $trick->setFeaturedImage(null);
+                    }
                     $trick->removeImage($image);
+                    if ($image == $trick->getFeaturedImage()) {
+                        $newFeaturedImage = $trick->getImages()->getValues()[0];
+                        $trick->setFeaturedImage($newFeaturedImage);
+                    }
                 }
             }
             foreach ($originalVideos as $video) {
@@ -73,7 +80,7 @@ class TrickController extends AbstractController
             $manager->persist($trick);
             $manager->flush();
 
-            if ($slug != $request->request->get('slug')) {
+            if ($trick->getSlug() != $request->request->get('slug')) {
                 return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
             }
         }
@@ -86,47 +93,58 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/trick/{slug}", name="trick")
+     * @Route("/trick/{slug}/{tab}", name="trick")
      */
-    public function trick(Request $request, Trick $trick, EntityManagerInterface $manager, SpamChecker $spamChecker): Response
+    public function trick(Request $request, Trick $trick, EntityManagerInterface $manager, SpamChecker $spamChecker, $tab = null): Response
     {
+        $formCommentError = null;
+        $tabs = [
+            'gallery' => ['active' => false],
+            'informations' => ['active' => false],
+            'chat' => ['active' => false]
+        ];
+        $activeTab = 'gallery';
+        if ($tab === 'informations' or $tab === 'chat') {
+            $activeTab = $tab;
+        }
+        $tabs[$activeTab]['active'] = ' show active ';
+
         $comments = $trick->getComment();
 
-        $newComment = new Comment();
-        $formComment = $this->createFormBuilder($newComment)
-            ->add('comment', TextType::class, [
-                'label' => false
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Envoyer'
-            ])
-            ->getForm();
 
-        $formComment->handleRequest($request);
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $newComment = new Comment();
+            $formComment = $this->createFormBuilder($newComment)
+                ->add('comment', TextType::class, [
+                    'label' => false
+                ])
+                ->add('submit', SubmitType::class, [
+                    'label' => 'Envoyer'
+                ])
+                ->getForm();
+            $formComment->handleRequest($request);
 
-        if ($formComment->isSubmitted() && $formComment->isValid()) {
-            $newComment->setTrick($trick)
-                ->setCreatedAt(new \DateTimeImmutable())
-                ->setUser($this->getUser());
+            if ($formComment->isSubmitted() && $formComment->isValid()) {
+                $newComment->setTrick($trick)
+                    ->setCreatedAt(new \DateTimeImmutable())
+                    ->setUser($this->getUser());
+                $manager->persist($newComment);
 
-            $manager->persist($newComment);
-
-            $context = [
-                'user_ip' => $request->getClientIp(),
-                'user_agent' => $request->headers->get('user-agent'),
-                'referrer' => $request->headers->get('referer'),
-                'permalink' => $request->getUri(),
-            ];
-            if (2 === $spamChecker->getSpamScore($newComment, $context)) {
-                throw new \RuntimeException('Blatant spam, go away!');
+                if ($spamChecker->getSpamScore($newComment) > 0) {
+                    $formCommentError = 'Votre commentaire est considéré comme du spam. Veuillez écrire autre chose.';
+                } else {
+                    $manager->flush();
+                }
             }
-
-            $manager->flush();
+            $formCommentView = $formComment->createView();
         }
 
         return $this->render('trick/trick.html.twig', [
-            'formComment' => $formComment->createView(),
+            'formComment' => $formCommentView ?? null,
+            'formCommentError' => $formCommentError,
             'comments' => $comments->getValues(),
-            'trick' => $trick
+            'trick' => $trick,
+            'tabs' => $tabs
         ]);
     }
 }

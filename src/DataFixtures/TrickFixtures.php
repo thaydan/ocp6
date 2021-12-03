@@ -78,7 +78,20 @@ class TrickFixtures extends Fixture
             ]
         ];
 
+        $groups = [];
+        $groupsFixtures = ['Grabs', 'Rotations', 'Flips', 'Rotations désaxées', 'Slides', 'One foot', 'Old school'];
 
+        // add groups and linked tricks
+        for ($i = 0; $i < count($groupsFixtures); $i++) {
+            $group = new Group();
+            $group->setTitle($groupsFixtures[$i]);
+            $manager->persist($group);
+
+            $groups[] = $group;
+        }
+
+
+        // add tricks
         for ($i = 0; $i < 10; $i++) {
             $trickFixture = $tricksFixtures[$i];
 
@@ -89,9 +102,11 @@ class TrickFixtures extends Fixture
             $trick->setTitle($trickFixture['name'])
                 ->setSlug($trickFixture['slug'])
                 ->setDescription($trickFixture['description'])
-                ->setContent("Contenu du Trick $i")
                 ->setCreatedAt(new \DateTimeImmutable())
                 ->setUpdatedAt(new \DateTimeImmutable());
+            if($i < count($groups)) {
+                $trick->setGroup($groups[$i]);
+            }
             $manager->persist($trick);
 
             // add trick images
@@ -112,20 +127,19 @@ class TrickFixtures extends Fixture
             $tricks[] = $trick;
         }
 
-        // add groups and linked tricks
-        $groups = ['Grabs', 'Rotations', 'Flips', 'Rotations désaxées', 'Slides', 'One foot', 'Old school'];
-        for ($i = 0; $i < count($groups); $i++) {
-            $group = new Group();
-            $group->setTitle($groups[$i])->addTrick($tricks[$i]);
-            $manager->persist($group);
-        }
+        $usersFixtures = [
+            ['email' => 'eevi.wirta@example.com'],
+            ['email' => 'sanni.lauri@example.com'],
+            ['email' => 'phil.banks@example.com'],
+            ['email' => 'joana.mader@example.com'],
+        ];
 
 
         // add users and add linked comments
         for ($i = 0; $i < 4; $i++) {
             $user = new User();
-            $user->setEmail("email$i@gmail.com")
-                ->setPassword($this->userPasswordHasher->hashPassword($user, "pass$i"))
+            $user->setEmail($usersFixtures[$i]['email'])
+                ->setPassword($this->userPasswordHasher->hashPassword($user, "pass"))
                 ->setFirstName("FirstName$i")
                 ->setLastName("LastName$i")
                 ->setUsername("Username$i");

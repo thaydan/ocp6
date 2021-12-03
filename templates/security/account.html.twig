@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+    <section class="page-section d-flex align-items-center">
+        <div class="container">
+            <div class="row text-center w-50 m-auto">
+                <h1 class="h3 mb-5 font-weight-normal">Mon compte</h1>
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {% if error %}
+                    <div class="alert alert-danger mx-4 fs-6">{{ error }}</div>
+                {% endif %}
+                {% if success %}
+                    <div class="alert alert-info mx-4 fs-6">{{ success }}</div>
+                {% endif %}
+                <button class="btn btn-lg btn-primary mt-4">{{ button_label|default('Enregistrer') }}</button>
+                <p class="mt-4"><a href="{{ path('app_reset_password') }}">Modifier le mot de passe</a></p>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
+{% endblock %}

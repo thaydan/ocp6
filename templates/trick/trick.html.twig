@@ -14,28 +14,29 @@
         <div class="container">
             <ul class="nav nav-pills justify-content-center mb-5" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <h2 class="nav-link fs-3 active" id="pills-home-tab" data-bs-toggle="pill"
+                    <h2 class="nav-link fs-3 {{ tabs.gallery.active }}" id="pills-gallery-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-gallery"
-                        type="button" role="tab" aria-controls="pills-home" aria-selected="true">GALLERIE
+                        type="button" role="tab" aria-controls="pills-gallery" aria-selected="true">GALLERIE
                     </h2>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <h2 class="nav-link fs-3" id="pills-profile-tab" data-bs-toggle="pill"
+                    <h2 class="nav-link fs-3 {{ tabs.informations.active }}" id="pills-informations-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-informations"
-                        type="button" role="tab" aria-controls="pills-profile" aria-selected="false">INFORMATIONS
+                        type="button" role="tab" aria-controls="pills-informations" aria-selected="false">INFORMATIONS
                     </h2>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <h2 class="nav-link fs-3" id="pills-contact-tab" data-bs-toggle="pill"
+                    <h2 class="nav-link fs-3 {{ tabs.chat.active }}" id="pills-chat-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-chat"
-                        type="button" role="tab" aria-controls="pills-contact" aria-selected="false">DISCUSSION
+                        type="button" role="tab" aria-controls="pills-chat" aria-selected="false">DISCUSSION
                     </h2>
                 </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-gallery" role="tabpanel"
+                <div class="tab-pane fade {{ tabs.gallery.active }}" id="pills-gallery" role="tabpanel"
                      aria-labelledby="pills-home-tab">
                     <!-- Medias Image -->
+                    <h3>Images</h3>
                     <div class="row" id="portfolio">
                         {% for image in trick.images %}
                             <div class="col-lg-3 col-sm-4 mb-4">
@@ -53,6 +54,7 @@
                             </div>
                         {% endfor %}
                     </div>
+                    <h3>Vidéos</h3>
                     <!-- Medias Video -->
                     <div class="row">
                         {% for video in trick.videos %}
@@ -60,12 +62,9 @@
                         {% endfor %}
                     </div>
                 </div>
-                <div class="tab-pane fade" id="pills-informations" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <div class="tab-pane fade {{ tabs.informations.active }}" id="pills-informations" role="tabpanel" aria-labelledby="pills-profile-tab">
                     <div class="text-center">
                         <h3 class="section-subheading text-muted">{{ trick.description }}</h3>
-                    </div>
-                    <div class="row text-center mt-5">
-                        <p>{{ trick.content }}</p>
                     </div>
                     <div class="row text-center">
                         <span>Crée le {{ trick.createdAt | date('d/m/Y') }} à {{ trick.createdAt | date('H:i') }}</span>
@@ -77,10 +76,13 @@
                     <a href="{{ path('trick_edit', {'slug':trick.slug}) }}"
                        class="btn btn-primary mx-auto d-block w-25">Editer le Trick</a>
                 </div>
-                <div class="tab-pane fade" id="pills-chat" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <div class="tab-pane fade {{ tabs.chat.active }}" id="pills-chat" role="tabpanel" aria-labelledby="pills-contact-tab">
                     <div class="row w-50 m-auto text-center">
                         <h4 class="section-heading text-uppercase mb-3">Nouveau message</h4>
                         {% if app.user %}
+                            {% if formCommentError %}
+                                <div class="alert alert-danger">{{ formCommentError }}</div>
+                            {% endif %}
                             {{ form(formComment) }}
                         {% else %}
                             <div>Vous devez être connecté pour laisser un commentaire. <a
@@ -91,10 +93,7 @@
                     <div class="row w-75 m-auto text-center">
                         <h4 class="section-heading text-uppercase mt-5 mb-3">Derniers messages</h4>
                         {% for comment in comments %}
-                            <div class="comment">
-                                <div class="comment-content">{{ comment.comment }}</div>
-                                <div class="comment-date">{{ comment.createdAt | date('d/m/Y') }}</div>
-                            </div>
+                            {{ include('trick/_comment.html.twig') }}
                         {% endfor %}
                     </div>
                 </div>

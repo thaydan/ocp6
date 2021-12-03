@@ -2,11 +2,13 @@
 
 namespace App\Form;
 
+use App\Entity\Group;
 use App\Entity\Trick;
 use App\Entity\TrickImage;
 use App\Repository\TrickImageRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -40,11 +42,6 @@ class TrickType extends AbstractType
                     'class' => 'form-floating',
                 ],
             ])
-            ->add('content', TextareaType::class, [
-                'row_attr' => [
-                    'class' => 'form-floating',
-                ],
-            ])
             ->add('images', CollectionType::class, [
                 'entry_type' => TrickImageType::class,
                 'allow_add' => true,
@@ -63,7 +60,10 @@ class TrickType extends AbstractType
                     'class' => 'collection'
                 ],
             ])
-            ->add('group');
+            ->add('group', EntityType::class, [
+                'class' => Group::class,
+                'label'=> 'Groupe'
+            ]);
         if ($trick->getId()) {
             $builder
                 ->add('featuredImage', EntityType::class, [

@@ -1,18 +1,22 @@
 <?php
 
-namespace App;
+namespace App\Service;
 
 use App\Entity\Comment;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SpamChecker extends AbstractController
 {
     private $client;
     private $endpoint;
+    private ?Request $request;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(RequestStack $requestStack, HttpClientInterface $client)
     {
+        $this->request = $requestStack->getCurrentRequest();
         $this->client = $client;
         $this->endpoint = sprintf('https://%s.rest.akismet.com/1.1/comment-check', $_ENV['AKISMET_KEY']);
     }
@@ -23,9 +27,17 @@ class SpamChecker extends AbstractController
      * @throws \RuntimeException if the call did not work
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
-    public function getSpamScore(Comment $comment, array $context): int
+    public function getSpamScore(Comment $comment): int
     {
         $user = $this->getUser();
+
+
+        $context = [
+            'user_ip' => $this->request->getClientIp(),
+            'user_agent' => $this->request->headers->get('user-agent'),
+            'referrer' => $this->request->headers->get('referer'),
+            'permalink' => $this->request->getUri(),
+        ];
 
         $response = $this->client->request('POST', $this->endpoint, [
             'body' => array_merge($context, [
@@ -36,17 +48,14 @@ class SpamChecker extends AbstractController
                     $user->getLastName()
                 ]),
                 'comment_author_email' => $user->getEmail(),
-                /*'comment_author_email' => 'akismet-guaranteed-spam@example.com',*/
                 'comment_content' => $comment->getComment(),
                 'comment_date_gmt' => $comment->getCreatedAt()->format('c'),
                 'blog_lang' => 'fr',
                 'blog_charset' => 'UTF-8',
-                'is_test' => true,
             ]),
         ]);
 
         $headers = $response->getHeaders();
-        dd($response->getContent());
         if ('discard' === ($headers['x-akismet-pro-tip'][0] ?? '')) {
             return 2;
         }

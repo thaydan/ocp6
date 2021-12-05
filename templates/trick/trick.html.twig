@@ -15,19 +15,19 @@
             <ul class="nav nav-pills justify-content-center mb-5" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <h2 class="nav-link fs-3 {{ tabs.gallery.active }}" id="pills-gallery-tab" data-bs-toggle="pill"
-                        data-bs-target="#pills-gallery"
+                        data-bs-target="#pills-gallery" data-tab-slug="gallery" data-trick-slug="{{ trick.slug }}"
                         type="button" role="tab" aria-controls="pills-gallery" aria-selected="true">GALLERIE
                     </h2>
                 </li>
                 <li class="nav-item" role="presentation">
                     <h2 class="nav-link fs-3 {{ tabs.informations.active }}" id="pills-informations-tab" data-bs-toggle="pill"
-                        data-bs-target="#pills-informations"
+                        data-bs-target="#pills-informations" data-tab-slug="informations" data-trick-slug="{{ trick.slug }}"
                         type="button" role="tab" aria-controls="pills-informations" aria-selected="false">INFORMATIONS
                     </h2>
                 </li>
                 <li class="nav-item" role="presentation">
                     <h2 class="nav-link fs-3 {{ tabs.chat.active }}" id="pills-chat-tab" data-bs-toggle="pill"
-                        data-bs-target="#pills-chat"
+                        data-bs-target="#pills-chat" data-tab-slug="chat" data-trick-slug="{{ trick.slug }}"
                         type="button" role="tab" aria-controls="pills-chat" aria-selected="false">DISCUSSION
                     </h2>
                 </li>
@@ -95,6 +95,9 @@
                         {% for comment in comments %}
                             {{ include('trick/_comment.html.twig') }}
                         {% endfor %}
+                        {% if commentsCount %}
+                            Suivant
+                        {% endif %}
                     </div>
                 </div>
             </div>

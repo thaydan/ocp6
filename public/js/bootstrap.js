@@ -27,7 +27,8 @@ window.addEventListener('DOMContentLoaded', event => {
             target: '#mainNav',
             offset: 74,
         });
-    };
+    }
+    ;
 
     // Collapse responsive navbar when toggler is visible
     const navbarToggler = document.body.querySelector('.navbar-toggler');
@@ -43,3 +44,15 @@ window.addEventListener('DOMContentLoaded', event => {
     });
 
 });
+
+let buttons = document.querySelectorAll('#pills-tab .nav-link');
+
+for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', updateHash);
+}
+
+function updateHash(e) {
+    let tabSlug = e.target.getAttribute('data-tab-slug');
+    let trickSlug = e.target.getAttribute('data-trick-slug');
+    history.replaceState(null, null, '/trick/' + trickSlug + '/' + tabSlug);
+}

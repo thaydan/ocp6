@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Trick;
 use App\Form\TrickType;
+use App\Repository\CommentRepository;
 use App\Service\SpamChecker;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,7 +22,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/trick/new", name="trick_new")
      * @Route("/trick/{slug}/edit", name="trick_edit")
-     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * @IsGranted("")
      */
     public function edit(Request $request, EntityManagerInterface $manager, Trick $trick = null, $slug = null): Response
     {
@@ -95,7 +96,9 @@ class TrickController extends AbstractController
      * @Route("/trick/{slug}", name="trick")
      * @Route("/trick/{slug}/{tab}", name="trick")
      */
-    public function trick(Request $request, Trick $trick, EntityManagerInterface $manager, SpamChecker $spamChecker, $tab = null): Response
+    public function trick(
+        Request $request, Trick $trick, EntityManagerInterface $manager,
+        SpamChecker $spamChecker, $tab = null, CommentRepository $commentRepository): Response
     {
         $formCommentError = null;
         $tabs = [
@@ -109,7 +112,9 @@ class TrickController extends AbstractController
         }
         $tabs[$activeTab]['active'] = ' show active ';
 
-        $comments = $trick->getComment();
+        $commentsCount = $commentRepository->count(['trick' => $trick]);
+        var_dump($count);
+        $comments = $commentRepository->findBy(['trick' => $trick], ['createdAt' => 'DESC'], 10, 0);
 
 
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -142,7 +147,8 @@ class TrickController extends AbstractController
         return $this->render('trick/trick.html.twig', [
             'formComment' => $formCommentView ?? null,
             'formCommentError' => $formCommentError,
-            'comments' => $comments->getValues(),
+            'comments' => $comments,
+            'commentsCount' => $commentsCount,
             'trick' => $trick,
             'tabs' => $tabs
         ]);

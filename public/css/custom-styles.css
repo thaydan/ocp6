@@ -86,6 +86,8 @@ input, textarea {
     border-radius: 0.25rem;
     padding: 20px 18px;
     margin-bottom: 8px;
+    display: flex;
+    column-gap: 14px;
 }
 
 #portfolio .portfolio-item .portfolio-link .portfolio-hover {

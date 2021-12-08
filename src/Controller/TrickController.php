@@ -22,7 +22,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/trick/new", name="trick_new")
      * @Route("/trick/{slug}/edit", name="trick_edit")
-     * @IsGranted("")
+     * @IsGranted("ROLE_USER")
      */
     public function edit(Request $request, EntityManagerInterface $manager, Trick $trick = null, $slug = null): Response
     {
@@ -113,7 +113,6 @@ class TrickController extends AbstractController
         $tabs[$activeTab]['active'] = ' show active ';
 
         $commentsCount = $commentRepository->count(['trick' => $trick]);
-        var_dump($count);
         $comments = $commentRepository->findBy(['trick' => $trick], ['createdAt' => 'DESC'], 10, 0);
 
 

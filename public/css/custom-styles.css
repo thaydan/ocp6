@@ -13,6 +13,7 @@ body {
 header.masthead {
     height: 100vh;
     padding-top: 41vh;
+    flex: none;
 }
 
 header.masthead + .page-section {
@@ -124,28 +125,13 @@ input, textarea {
 .trick-item .trick-link {
     position: relative;
     display: block;
-    margin: 0 auto;
+    margin: 0;
 }
 
-.trick-item .trick-link .trick-hover {
-    display: flex;
-    position: absolute;
+.trick-item .trick-link .img-fluid {
     width: 100%;
-    height: 100%;
-    background: rgb(255 200 0 / 15%);
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity ease-in-out 0.25s;
-}
-
-.trick-item .trick-link .trick-hover .trick-hover-content {
-    font-size: 1.25rem;
-    color: white;
-}
-
-.trick-item .trick-link:hover .trick-hover {
-    opacity: 1;
+    height: 280px;
+    object-fit: cover;
 }
 
 .trick-item .trick-caption {
@@ -248,4 +234,16 @@ input, textarea {
 
 #btn-go-to-top:hover {
     background-color: #555;
+}
+
+@media screen and (max-width: 1400px) {
+    .trick-item .trick-link .img-fluid {
+        height: 240px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .trick-item .trick-link .img-fluid {
+        height: 190px;
+    }
 }

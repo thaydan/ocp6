@@ -11,7 +11,8 @@
                     <div>
                         Votre compte a été créé avec succès.
                     </div>
-                    <a href="{{ path('app_login') }}" class="btn btn-lg btn-primary mt-4">{{ button_label|default('Se connecter') }}</a>
+                    <a href="{{ path('app_login') }}"
+                       class="btn btn-lg btn-primary mt-4">{{ button_label|default('Se connecter') }}</a>
                 {% else %}
                     <h1 class="h3 mb-5 font-weight-normal">Inscription</h1>
                     {{ form_start(form) }}
@@ -21,6 +22,9 @@
                     {% endif %}
                     <button class="btn btn-lg btn-primary mt-4">{{ button_label|default('Valider') }}</button>
                     {{ form_end(form) }}
+                    <p class="mt-5">
+                        <a href="{{ path('app_login') }}">Se connecter</a><br>
+                    </p>
                 {% endif %}
             </div>
         </div>

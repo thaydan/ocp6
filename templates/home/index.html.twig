@@ -5,10 +5,20 @@
 {% block body %}
     <!-- Masthead-->
     <header class="masthead">
-        <div class="container w-75 ms-auto me-0">
-            <div class="masthead-subheading">Welcome To Our Studio!</div>
-            <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-            <a class="btn btn-primary btn-xl text-uppercase" href="#tricks">Parcourir les tricks</a>
+        <div class="container d-flex flex-column h-100">
+            <div class="row">
+                <div class="col col-md-6 ms-auto me-0">
+                    <div class="masthead-subheading">Bienvenue sur SnowTricks</div>
+                    <div class="masthead-heading text-uppercase fs-3 lh-base mt-5">
+                        Le site collaboratif<br>des figures de snowboard
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-auto">
+                <div class="col col-md-6 ms-auto me-0">
+                    <a class="btn btn-primary btn-xl text-uppercase mt-5" href="#tricks">Parcourir les tricks</a>
+                </div>
+            </div>
         </div>
     </header>
     <section id="tricks" class="page-section">

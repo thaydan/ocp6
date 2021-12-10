@@ -5,7 +5,7 @@
 {% block body %}
     <section class="page-section d-flex align-items-center">
         <div class="container">
-            <div class="row text-center">
+            <div class="row text-center w-50 m-auto">
                 <form method="post" id="login-form">
                     {% if error %}
                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -19,16 +19,11 @@
 
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                    {#
-                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                    See https://symfony.com/doc/current/security/remember_me.html
-
                     <div class="checkbox mb-3">
                         <label>
-                            <input type="checkbox" name="_remember_me"> Remember me
+                            <input type="checkbox" name="_remember_me"> Se rappeler de moi
                         </label>
                     </div>
-                    #}
 
                     <button class="btn btn-lg btn-primary mt-4" type="submit">Se connecter</button>
                     <p class="mt-5">

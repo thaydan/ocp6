@@ -14,24 +14,6 @@ class AccountType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class, [
-                'attr' => [
-                    'placeholder' => 'Adresse e-mail',
-                ],
-                'label' => 'Adresse e-mail',
-                'row_attr' => [
-                    'class' => 'form-floating',
-                ],
-            ])
-            ->add('username', TextType::class, [
-                'attr' => [
-                    'placeholder' => 'Pseudo',
-                ],
-                'label' => 'Pseudo',
-                'row_attr' => [
-                    'class' => 'form-floating',
-                ],
-            ])
             ->add('firstName', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Prénom',
@@ -46,6 +28,24 @@ class AccountType extends AbstractType
                     'placeholder' => 'Nom de famille',
                 ],
                 'label' => 'Nom de famille',
+                'row_attr' => [
+                    'class' => 'form-floating',
+                ],
+            ])
+            ->add('username', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Pseudo',
+                ],
+                'label' => 'Pseudo',
+                'row_attr' => [
+                    'class' => 'form-floating',
+                ],
+            ])
+            ->add('email', EmailType::class, [
+                'attr' => [
+                    'placeholder' => 'Adresse e-mail',
+                ],
+                'label' => 'Adresse e-mail',
                 'row_attr' => [
                     'class' => 'form-floating',
                 ],

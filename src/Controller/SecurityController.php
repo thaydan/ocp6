@@ -38,7 +38,7 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils, Referer $referer): Response
     {
-        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             return $referer->goTo();
         }
         $referer->set();
@@ -65,7 +65,7 @@ class SecurityController extends AbstractController
      */
     public function signUp(Request $request, EntityManagerInterface $manager): Response
     {
-        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             return $this->redirectToRoute('home');
         }
 
@@ -115,7 +115,7 @@ class SecurityController extends AbstractController
      */
     public function lostPassword(Request $request, MailerInterface $mailer, EntityManagerInterface $manager): Response
     {
-        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             return $this->redirectToRoute('home');
         }
 
@@ -171,7 +171,7 @@ class SecurityController extends AbstractController
     public function resetPassword(?string $token, Request $request, EntityManagerInterface $manager): Response
     {
         $user = null;
-        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             $user = $this->getUser();
         }
         if ($token) {
@@ -212,7 +212,7 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/account", name="app_account")
-     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * @IsGranted("ROLE_USER")
      */
     public function account(Request $request, EntityManagerInterface $manager): Response
     {

@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class CommentController extends AbstractController
 {
     /**
-     * @isGranted("IS_AUTHENTICATED_FULLY")
+     * @isGranted("ROLE_USER")
      * @Route("/comment/{id}", name="comment_delete", methods={"POST"})
      */
     public function delete(Request $request, Comment $comment, Referer $referer): Response

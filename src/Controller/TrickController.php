@@ -116,7 +116,7 @@ class TrickController extends AbstractController
         $comments = $commentRepository->findBy(['trick' => $trick], ['createdAt' => 'DESC'], 10, 0);
 
 
-        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             $newComment = new Comment();
             $formComment = $this->createFormBuilder($newComment)
                 ->add('comment', TextType::class, [

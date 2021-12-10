@@ -50,6 +50,7 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            var_dump($form->getErrors());die;
             if ($form->get('cancel')->isClicked()) {
                 return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
             }

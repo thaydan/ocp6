@@ -226,13 +226,19 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $userWithSameUsername = $this->getDoctrine()->getRepository(User::class)
                 ->findOneBy(['username' => $form->get('username')->getData()]);
-            if ($user == $userWithSameUsername OR !$userWithSameUsername) {
+            $userWithSameEmail = $this->getDoctrine()->getRepository(User::class)
+                ->findOneBy(['email' => $form->get('email')->getData()]);
+            if (($user == $userWithSameUsername or !$userWithSameUsername)
+                and ($user == $userWithSameEmail or !$userWithSameEmail)) {
                 $manager->persist($user);
                 $manager->flush();
                 $success = 'Les modifications ont bien été enregistrées';
-            }
-            else {
-                $error = 'Ce pseudo est déjà utilisé';
+            } else {
+                if ($userWithSameUsername) {
+                    $error = 'Ce pseudo est déjà utilisé';
+                } else if ($userWithSameEmail) {
+                    $error = 'Cette adresse e-mail est déjà utilisée';
+                }
             }
         }
 

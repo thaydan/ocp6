@@ -37,6 +37,13 @@ body {
     }
 }
 
+/* button */
+@media screen and (max-width: 576px) {
+    .btn-xl {
+        padding: 0.75rem 1.3rem;
+    }
+}
+
 /* go to top button */
 #btn-go-to-top {
     display: none;
@@ -97,8 +104,29 @@ header.masthead {
     padding-bottom: 18vh;
     flex: none;
 }
+header .masthead-hover {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(33,89,187,0.577468487394958) 44%, rgba(33,89,187,0.577468487394958) 100%);
+}
+@media screen and (max-width: 576px) {
+    header.masthead {
+        padding-top: 38vh;
+    }
+    header .masthead-hover {
+        display: block;
+    }
+}
 header.masthead + .page-section {
     padding: 6rem 0;
+}
+header .masthead-content {
+    position: relative;
+    z-index: 1;
 }
 header .masthead-heading {
     margin-bottom: 40vh;

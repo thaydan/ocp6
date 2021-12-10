@@ -6,3 +6,13 @@ framework:
         # For instance, basic validation constraints will be inferred from Doctrine's metadata.
         #auto_mapping:
         #    App\Entity\: []
+
+#App\Entity\Trick:
+#    constraints:
+#        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: title
+#        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: slug
+#    properties:
+#        title:
+#            - Title: ~
+#        slug:
+#            - Slug: ~

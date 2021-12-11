@@ -50,7 +50,6 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            var_dump($form->getErrors());die;
             if ($form->get('cancel')->isClicked()) {
                 return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
             }
@@ -89,17 +88,18 @@ class TrickController extends AbstractController
 
         return $this->render('trick/edit.html.twig', [
             'form' => $form->createView(),
-            'trick' => $trick,
+            'trick' => $trick
         ]);
     }
 
     /**
      * @Route("/trick/{slug}", name="trick")
      * @Route("/trick/{slug}/{tab}", name="trick")
+     * @Route("/trick/{slug}/{tab}/{pageNumber}", name="trick")
      */
     public function trick(
         Request $request, Trick $trick, EntityManagerInterface $manager,
-        SpamChecker $spamChecker, $tab = null, CommentRepository $commentRepository): Response
+        SpamChecker $spamChecker, $tab = null, $pageNumber = 1, CommentRepository $commentRepository): Response
     {
         $formCommentError = null;
         $tabs = [
@@ -114,8 +114,7 @@ class TrickController extends AbstractController
         $tabs[$activeTab]['active'] = ' show active ';
 
         $commentsCount = $commentRepository->count(['trick' => $trick]);
-        $comments = $commentRepository->findBy(['trick' => $trick], ['createdAt' => 'DESC'], 10, 0);
-
+        $comments = $commentRepository->findBy(['trick' => $trick], ['createdAt' => 'DESC'], 10, ($pageNumber - 1));
 
         if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             $newComment = new Comment();
@@ -149,6 +148,7 @@ class TrickController extends AbstractController
             'formCommentError' => $formCommentError,
             'comments' => $comments,
             'commentsCount' => $commentsCount,
+            'pageNumber' => $pageNumber,
             'trick' => $trick,
             'tabs' => $tabs
         ]);

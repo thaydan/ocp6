@@ -23,6 +23,13 @@ abstract class AUploadEntity implements IUploadEntity
      */
     protected $filename;
 
+    /**
+     * @Assert\File(
+     *     maxSize = "10240k",
+     *     mimeTypes = {"image/jpeg", "image/png"},
+     *     mimeTypesMessage = "Seuls les formats PNG et JPEG sont autorisés"
+     * )
+     */
     protected ?UploadedFile $file;
 
     public function getId(): ?int

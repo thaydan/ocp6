@@ -94,17 +94,22 @@ class SecurityController extends AbstractController
                 $signUpConfirmation = true;
             } else {
                 if ($userWithSameUsername) {
-                    $error = 'Ce pseudo est déjà utilisé';
+                    $this->addFlash(
+                        'danger',
+                        'Ce pseudo est déjà utilisé'
+                    );
                 } else if ($userWithSameEmail) {
-                    $error = 'Cette adresse e-mail est déjà utilisée';
+                    $this->addFlash(
+                        'danger',
+                        'Cette adresse e-mail est déjà utilisée'
+                    );
                 }
             }
         }
 
         return $this->render('security/sign_up.html.twig', [
             'form' => $form->createView(),
-            'signUpConfirmation' => $signUpConfirmation,
-            'error' => $error
+            'signUpConfirmation' => $signUpConfirmation
         ]);
     }
 
@@ -226,19 +231,18 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $userWithSameUsername = $this->getDoctrine()->getRepository(User::class)
                 ->findOneBy(['username' => $form->get('username')->getData()]);
-            $userWithSameEmail = $this->getDoctrine()->getRepository(User::class)
-                ->findOneBy(['email' => $form->get('email')->getData()]);
-            if (($user == $userWithSameUsername or !$userWithSameUsername)
-                and ($user == $userWithSameEmail or !$userWithSameEmail)) {
+            if ($user == $userWithSameUsername or !$userWithSameUsername) {
                 $manager->persist($user);
                 $manager->flush();
-                $success = 'Les modifications ont bien été enregistrées';
+                $this->addFlash(
+                    'success',
+                    'Les modifications ont bien été sauvegardées'
+                );
             } else {
-                if ($userWithSameUsername) {
-                    $error = 'Ce pseudo est déjà utilisé';
-                } else if ($userWithSameEmail) {
-                    $error = 'Cette adresse e-mail est déjà utilisée';
-                }
+                $this->addFlash(
+                    'danger',
+                    'Ce pseudo est déjà utilisé'
+                );
             }
         }
 

@@ -17,9 +17,6 @@
                     <h1 class="h3 mb-5 font-weight-normal">Inscription</h1>
                     {{ form_start(form) }}
                     {{ form_widget(form) }}
-                    {% if error %}
-                        <div class="alert alert-danger mx-4 fs-6">{{ error }}</div>
-                    {% endif %}
                     <button class="btn btn-lg btn-primary mt-4">{{ button_label|default('Valider') }}</button>
                     {{ form_end(form) }}
                     <p class="mt-5">

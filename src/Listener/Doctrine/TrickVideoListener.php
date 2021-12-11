@@ -4,19 +4,11 @@ namespace App\Listener\Doctrine;
 
 
 use App\Entity\TrickVideo;
-use App\Service\UploadFileService;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Symfony\Component\Dotenv\Exception\FormatException;
 
 class TrickVideoListener
 {
-    private UploadFileService $uploadFileService;
-
-    public function __construct(UploadFileService $uploadFileService)
-    {
-        $this->uploadFileService = $uploadFileService;
-    }
-
     public function prePersist(LifecycleEventArgs $eventArgs)
     {
         $entity = $eventArgs->getObject();

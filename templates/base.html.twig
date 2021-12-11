@@ -2,14 +2,15 @@
 <html>
 <head>
     <title>{% block title %}SnowTricks{% endblock %}</title>
-    {% include "components/head.html.twig" %}
+    {% include "components/_head.html.twig" %}
 </head>
 <body id="page-top">
 
-{% include 'components/header.html.twig' %}
+{% include 'components/_header.html.twig' %}
+{% include 'components/_flash_messages.html.twig' %}
 {% block body %}{% endblock %}
-{% include 'components/footer.html.twig' %}
-{% include 'components/scroll-to-top-button.html.twig' %}
+{% include 'components/_footer.html.twig' %}
+{% include 'components/_scroll-to-top-button.html.twig' %}
 
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>

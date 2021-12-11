@@ -42,6 +42,7 @@
                         </div>
                     </div>
                 {% endfor %}
+                {{ include('components/_pagination.html.twig', {'pagination': paginationTricks}) }}
             </div>
         </div>
     </section>

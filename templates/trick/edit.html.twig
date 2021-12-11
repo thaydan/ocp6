@@ -101,6 +101,11 @@
             addTagFormDeleteLink(image)
         })
 
+        const videos = document.querySelectorAll('div.videos > div')
+        videos.forEach((video) => {
+            addTagFormDeleteLink(video)
+        })
+
         document
             .querySelectorAll('.add_item_link')
             .forEach(btn => btn.addEventListener("click", addFormToCollection));

@@ -81,6 +81,11 @@ class TrickController extends AbstractController
             $manager->persist($trick);
             $manager->flush();
 
+            $this->addFlash(
+                'success',
+                'Les modifications ont été sauvegardées'
+            );
+
             if ($trick->getSlug() != $request->request->get('slug')) {
                 return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
             }
@@ -101,7 +106,6 @@ class TrickController extends AbstractController
         Request $request, Trick $trick, EntityManagerInterface $manager,
         SpamChecker $spamChecker, $tab = null, $pageNumber = 1, CommentRepository $commentRepository): Response
     {
-        $formCommentError = null;
         $tabs = [
             'gallery' => ['active' => false],
             'informations' => ['active' => false],
@@ -113,9 +117,8 @@ class TrickController extends AbstractController
         }
         $tabs[$activeTab]['active'] = ' show active ';
 
-        $commentsCount = $commentRepository->count(['trick' => $trick]);
-        $comments = $commentRepository->findBy(['trick' => $trick], ['createdAt' => 'DESC'], 10, ($pageNumber - 1));
 
+        /* form add comment */
         if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             $newComment = new Comment();
             $formComment = $this->createFormBuilder($newComment)
@@ -135,20 +138,48 @@ class TrickController extends AbstractController
                 $manager->persist($newComment);
 
                 if ($spamChecker->getSpamScore($newComment) > 0) {
-                    $formCommentError = 'Votre commentaire est considéré comme du spam. Veuillez écrire autre chose.';
+                    $this->addFlash(
+                        'danger',
+                        'Votre commentaire a été refusé.<br>Veuillez écrire autre chose.'
+                    );
                 } else {
                     $manager->flush();
+
+                    $this->addFlash(
+                        'success',
+                        'Votre commentaire a été ajouté.'
+                    );
                 }
             }
             $formCommentView = $formComment->createView();
         }
+        /* end form add comment */
+
+        /* comments pagination */
+        $paginationComments = [];
+        $paginationComments['pageNumber'] = $pageNumber;
+        $paginationComments['itemsCount'] = $commentRepository->count(['trick' => $trick]);
+        if($paginationComments['pageNumber'] > 1) {
+            $paginationComments['linkPrevious'] = $this->generateUrl('trick', [
+                'slug' => $trick->getSlug(),
+                'tab' => 'chat',
+                'pageNumber' => $paginationComments['pageNumber'] - 1
+            ]);
+        }
+        if($paginationComments['itemsCount'] > $paginationComments['pageNumber'] * 10) {
+            $paginationComments['linkNext'] = $this->generateUrl('trick', [
+                'slug' => $trick->getSlug(),
+                'tab' => 'chat',
+                'pageNumber' => $paginationComments['pageNumber'] + 1
+            ]);
+        }
+        /* end comment pagination */
+        $comments = $commentRepository->findBy(['trick' => $trick], ['createdAt' => 'DESC'], 10, ($paginationComments['pageNumber'] - 1) * 10);
 
         return $this->render('trick/trick.html.twig', [
             'formComment' => $formCommentView ?? null,
-            'formCommentError' => $formCommentError,
             'comments' => $comments,
-            'commentsCount' => $commentsCount,
-            'pageNumber' => $pageNumber,
+            'paginationComments' => $paginationComments,
             'trick' => $trick,
             'tabs' => $tabs
         ]);

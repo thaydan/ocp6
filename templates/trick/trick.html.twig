@@ -20,8 +20,10 @@
                     </h2>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <h2 class="nav-link fs-3 {{ tabs.informations.active }}" id="pills-informations-tab" data-bs-toggle="pill"
-                        data-bs-target="#pills-informations" data-tab-slug="informations" data-trick-slug="{{ trick.slug }}"
+                    <h2 class="nav-link fs-3 {{ tabs.informations.active }}" id="pills-informations-tab"
+                        data-bs-toggle="pill"
+                        data-bs-target="#pills-informations" data-tab-slug="informations"
+                        data-trick-slug="{{ trick.slug }}"
                         type="button" role="tab" aria-controls="pills-informations" aria-selected="false">INFORMATIONS
                     </h2>
                 </li>
@@ -52,12 +54,16 @@
                             <i class="fas fa-window-close fa-3x"></i></div>
                         <div class="modal-title">{{ trick.title }} - Media {{ key + 1 }}/{{ trick.images|length }}</div>
                         <div class="modal-nav">
-                            <button class="btn btn-primary btn-previous">
-                                <a class="portfolio-link" data-bs-toggle="modal" href="#imageModal{{ image.id - 1 }}">
-                                    <i class="fas fa-arrow-left"></i></a></button>
-                            <button class="btn btn-primary btn-next">
-                                <a class="portfolio-link" data-bs-toggle="modal" href="#imageModal{{ image.id + 1 }}">
-                                    <i class="fas fa-arrow-right"></i></a></button>
+                            {% if(key > 0) %}
+                                <a class="btn btn-primary btn-previous portfolio-link" data-bs-toggle="modal"
+                                   href="#imageModal{{ image.id - 1 }}">
+                                    <i class="fas fa-arrow-left"></i></a>
+                            {% endif %}
+                            {% if(key + 1 < trick.images|length) %}
+                                <a class="btn btn-primary btn-next portfolio-link" data-bs-toggle="modal"
+                                   href="#imageModal{{ image.id + 1 }}">
+                                    <i class="fas fa-arrow-right"></i></a>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="container">
@@ -77,7 +83,7 @@
         </div>
         <script>
             $("div[id^='imageModal']").each(function () {
-                var currentModal = $(this);
+                let currentModal = $(this);
 
                 //click next
                 currentModal.find('.btn-next').click(function () {

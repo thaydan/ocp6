@@ -10,6 +10,13 @@ body {
     background-color: var(--background-body);
 }
 
+/* width */
+@media screen and (max-width: 576px) {
+    .w-50{
+        width: 100%!important;
+    }
+}
+
 /* navigation */
 #mainNav {
     padding-top: 1rem;
@@ -45,6 +52,7 @@ body {
     bottom: 10px;
     margin: 0 auto;
     max-width: 500px;
+    z-index: 10;
 }
 
 /* button */
@@ -265,4 +273,21 @@ header .masthead-heading {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* trick images & videos auto-collection */
+#trick_images.collection, #trick_videos.collection ~ legend {
+    display: none;
+}
+
+/* trick delete button */
+.trick-delete-form button {
+    padding: 0;
+}
+.trick-delete-form svg {
+    font-size: 23px;
+    color: #ffc800;
+}
+.trick-delete-form svg:hover {
+    color: #cca000;
 }

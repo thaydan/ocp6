@@ -13,8 +13,12 @@ class TrickVideoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
-            ->add('url')
+            ->add('title', TextType::class, [
+                'label' => 'Titre'
+            ])
+            ->add('url', TextType::class, [
+                'label' => 'Url (Youtube, Dailymotion ou Vimeo)'
+            ])
         ;
     }
 

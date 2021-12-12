@@ -31,17 +31,19 @@ class TrickVideo
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $platformDomain;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $platformVideoId;
 
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="videos")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $trick;
 
@@ -74,7 +76,7 @@ class TrickVideo
         return $this->platformDomain;
     }
 
-    public function setPlatformDomain(string $platformDomain): self
+    public function setPlatformDomain(?string $platformDomain): self
     {
         $this->platformDomain = $platformDomain;
 
@@ -86,7 +88,7 @@ class TrickVideo
         return $this->platformVideoId;
     }
 
-    public function setPlatformVideoId(string $platformVideoId): self
+    public function setPlatformVideoId(?string $platformVideoId): self
     {
         $this->platformVideoId = $platformVideoId;
 

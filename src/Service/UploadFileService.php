@@ -37,7 +37,7 @@ class UploadFileService
         return null;
     }
 
-    public function getTargetDirectory()
+    public function getTargetDirectory(): ?string
     {
         return $this->uploadDirectory;
     }

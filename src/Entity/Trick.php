@@ -52,19 +52,23 @@ class Trick
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="trick")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="trick", cascade={"persist", "remove"})
      * @OrderBy({"createdAt" = "DESC"})
      */
     private $comment;
 
     /**
-     * @ORM\OneToOne(targetEntity=TrickImage::class, cascade={"persist", "remove"}, mappedBy="trick")
+     * @ORM\OneToOne(targetEntity=TrickImage::class, cascade={"persist"}, mappedBy="trick")
      * @ORM\JoinColumn(nullable=true)
      */
     private $featuredImage;
 
     /**
-     * @ORM\OneToMany(targetEntity=TrickImage::class,cascade={"persist"}, mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=TrickImage::class,cascade={"persist", "remove"}, mappedBy="trick", orphanRemoval=true)
+     * @Assert\Count(
+     *      min = 1,
+     *      minMessage = "Vous devez ajouter au moins une image"
+     * )
      */
     private $images;
 

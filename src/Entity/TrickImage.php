@@ -30,7 +30,7 @@ class TrickImage extends AUploadEntity
 
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="images")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $trick;
 

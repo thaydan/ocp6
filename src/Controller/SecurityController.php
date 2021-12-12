@@ -9,6 +9,7 @@ use App\Form\ResetPasswordType;
 use App\Form\SignUpType;
 use App\Service\Referer;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use LogicException;
@@ -63,13 +64,12 @@ class SecurityController extends AbstractController
     /**
      * @Route("/sign-up", name="app_sign_up")
      */
-    public function signUp(Request $request, EntityManagerInterface $manager): Response
+    public function signUp(Request $request, EntityManagerInterface $manager, MailerInterface $mailer): Response
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             return $this->redirectToRoute('home');
         }
 
-        $error = null;
         $signUpConfirmation = false;
 
         $form = $this->createForm(SignUpType::class);
@@ -83,27 +83,43 @@ class SecurityController extends AbstractController
             $userWithSameEmail = $this->getDoctrine()->getRepository(User::class)
                 ->findOneBy(['email' => $formEmail]);
             if (!$userWithSameEmail && !$userWithSameUsername) {
+                $token = bin2hex(random_bytes(20));
                 $user = new User();
                 $user->setUsername($formUsername)
                     ->setFirstName($form->get('firstName')->getData())
                     ->setLastName($form->get('lastName')->getData())
                     ->setPassword($this->userPasswordHasher->hashPassword($user, $form->get('password')->getData()))
-                    ->setEmail($formEmail);
+                    ->setEmail($formEmail)
+                    ->setToken($token);
                 $manager->persist($user);
                 $manager->flush();
+
+                $payload = [
+                    "email" => $user->getEmail(),
+                    "token" => $token
+                ];
+                $tokenEncoded = JWT::encode($payload, $_ENV['APP_SECRET'], 'HS256');
+
+                $confirmationLink = $request->getUriForPath($this->generateUrl('app_confirm_account', ['token' => $tokenEncoded]));
+                $email = (new Email())
+                    ->from(new Address($_ENV['MAILER_SENDER_EMAIL'], $_ENV['MAILER_SENDER_NAME']))
+                    ->to($user->getEmail())
+                    ->subject('Activation de votre compte')
+                    ->text('Activer mon compte : ' . $confirmationLink)
+                    ->html('<p><a href="' . $confirmationLink . '">Activer mon compte</a></p>');
+                $mailer->send($email);
+
                 $signUpConfirmation = true;
-            } else {
-                if ($userWithSameUsername) {
-                    $this->addFlash(
-                        'danger',
-                        'Ce pseudo est déjà utilisé'
-                    );
-                } else if ($userWithSameEmail) {
-                    $this->addFlash(
-                        'danger',
-                        'Cette adresse e-mail est déjà utilisée'
-                    );
-                }
+            } elseif ($userWithSameUsername) {
+                $this->addFlash(
+                    'danger',
+                    'Ce pseudo est déjà utilisé'
+                );
+            } elseif ($userWithSameEmail) {
+                $this->addFlash(
+                    'danger',
+                    'Cette adresse e-mail est déjà utilisée'
+                );
             }
         }
 
@@ -140,12 +156,11 @@ class SecurityController extends AbstractController
                 $manager->persist($userWithThisEmail);
                 $manager->flush();
 
-                $key = $_ENV['APP_SECRET'];
                 $payload = [
                     "email" => $userWithThisEmail->getEmail(),
                     "token" => $token
                 ];
-                $tokenEncoded = JWT::encode($payload, $key, 'HS256');
+                $tokenEncoded = JWT::encode($payload, $_ENV['APP_SECRET'], 'HS256');
 
                 $resetPasswordLink = $request->getUriForPath($this->generateUrl('app_reset_password_token', ['token' => $tokenEncoded]));
                 $email = (new Email())
@@ -182,7 +197,7 @@ class SecurityController extends AbstractController
         if ($token) {
             try {
                 $jwt = JWT::decode($token, new Key($_ENV['APP_SECRET'], 'HS256'));
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 return $this->redirectToRoute('home');
             }
 
@@ -212,6 +227,35 @@ class SecurityController extends AbstractController
             'resetPasswordConfirmation' => $resetPasswordConfirmation,
             'error' => $error
         ]);
+    }
+
+
+    /**
+     * @Route("/confirm-account/{token}", name="app_confirm_account")
+     */
+    public function confirmAccount(?string $token, Request $request, EntityManagerInterface $manager): Response
+    {
+        if ($token) {
+            try {
+                $jwt = JWT::decode($token, new Key($_ENV['APP_SECRET'], 'HS256'));
+            } catch (Exception $e) {
+                return $this->redirectToRoute('home');
+            }
+
+            $user = $this->getDoctrine()->getRepository(User::class)
+                ->findOneBy(['email' => $jwt->email, 'token' => $jwt->token]);
+
+            if (!$user) {
+                return $this->redirectToRoute('home');
+            }
+
+            $user->setToken(null)
+                ->setAccountConfirmed(true);
+            $manager->persist($user);
+            $manager->flush();
+        }
+        $this->addFlash('success', 'Votre compte a été validé avec succès.');
+        return $this->redirectToRoute('app_login');
     }
 
 

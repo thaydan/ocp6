@@ -9,10 +9,8 @@
                 {% if signUpConfirmation %}
                     <h1 class="h3 mb-5 font-weight-normal">Confirmation</h1>
                     <div>
-                        Votre compte a été créé avec succès.
+                        Veuillez cliquer sur le lien envoyé par e-mail pour valider votre compte.
                     </div>
-                    <a href="{{ path('app_login') }}"
-                       class="btn btn-lg btn-primary mt-4">{{ button_label|default('Se connecter') }}</a>
                 {% else %}
                     <h1 class="h3 mb-5 font-weight-normal">Inscription</h1>
                     {{ form_start(form) }}

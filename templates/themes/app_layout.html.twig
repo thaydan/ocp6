@@ -3,25 +3,14 @@
 {% block form_widget_simple -%}
     {% if form.vars.type is defined and form.vars.type == 'file' and form.parent.vars.value %}
         <img class="w-100" src="{{ asset('/uploads/' ~ form.parent.vars.value.filename) }}" alt="">
+    {% elseif form.vars.name is defined and form.vars.name == 'url' and form.parent.vars.value %}
+        {% set video = {
+            'title': form.parent.vars.data.title,
+            'platformDomain': form.parent.vars.data.platformDomain,
+            'platformVideoId': form.parent.vars.data.platformVideoId
+        }%}
+        {{ include('trick/_players.html.twig', {video: video}) }}
     {% else %}
         {{- parent() -}}
     {% endif %}
 {%- endblock form_widget_simple %}
-
-
-{#
-{%- block choice_widget_expanded -%}
-    {{ dump(form) }}
-    {% if form.vars.name is defined and form.vars.name == 'featuredImage' and form.parent.vars.value %}
-    <div {{ block('widget_container_attributes') }}>
-        {%- for child in form %}
-            {{ dump(child) }}
-            {{- form_widget(child, {
-                parent_label_class: label_attr.class|default(''),
-                translation_domain: choice_translation_domain,
-                valid: valid,
-            }) -}}
-        {% endfor -%}
-    </div>
-    {% endif %}
-{%- endblock choice_widget_expanded %}#}

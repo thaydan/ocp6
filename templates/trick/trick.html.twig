@@ -81,22 +81,22 @@
                 </div>
             </div>
         </div>
-        <script>
-            $("div[id^='imageModal']").each(function () {
-                let currentModal = $(this);
-
-                //click next
-                currentModal.find('.btn-next').click(function () {
-                    currentModal.modal('hide');
-                    currentModal.closest("div[id^='imageModal']").nextAll("div[id^='imageModal']").first().modal('show');
-                });
-
-                //click prev
-                currentModal.find('.btn-previous').click(function () {
-                    currentModal.modal('hide');
-                    currentModal.closest("div[id^='imageModal']").prevAll("div[id^='imageModal']").first().modal('show');
-                });
-            });
-        </script>
     {% endfor %}
+    <script>
+        $("div[id^='imageModal']").each(function () {
+            let currentModal = $(this);
+
+            //click next
+            currentModal.find('.btn-next').click(function () {
+                currentModal.modal('hide');
+                currentModal.closest("div[id^='imageModal']").nextAll("div[id^='imageModal']").first().modal('show');
+            });
+
+            //click prev
+            currentModal.find('.btn-previous').click(function () {
+                currentModal.modal('hide');
+                currentModal.closest("div[id^='imageModal']").prevAll("div[id^='imageModal']").first().modal('show');
+            });
+        });
+    </script>
 {% endblock %}

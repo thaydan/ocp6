@@ -49,11 +49,8 @@ class TrickController extends AbstractController
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('cancel')->isClicked()) {
-                return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
-            }
 
+        if ($form->isSubmitted() && $form->isValid() && !empty($trick->getImages()->getValues())) {
             if (!$trick->getCreatedAt()) {
                 $trick->setCreatedAt(new \DateTimeImmutable());
             }
@@ -66,16 +63,17 @@ class TrickController extends AbstractController
                         $trick->setFeaturedImage(null);
                     }
                     $trick->removeImage($image);
-                    if ($image == $trick->getFeaturedImage()) {
-                        $newFeaturedImage = $trick->getImages()->getValues()[0];
-                        $trick->setFeaturedImage($newFeaturedImage);
-                    }
                 }
             }
             foreach ($originalVideos as $video) {
                 if (false === $trick->getVideos()->contains($video)) {
                     $trick->removeVideo($video);
                 }
+            }
+
+            if (!$trick->getFeaturedImage()) {
+                $newFeaturedImage = $trick->getImages()->getValues()[0];
+                $trick->setFeaturedImage($newFeaturedImage);
             }
 
             $manager->persist($trick);
@@ -97,13 +95,14 @@ class TrickController extends AbstractController
         ]);
     }
 
+
     /**
      * @Route("/trick/{slug}", name="trick")
      * @Route("/trick/{slug}/{tab}", name="trick")
      * @Route("/trick/{slug}/{tab}/{pageNumber}", name="trick")
      */
     public function trick(
-        Request $request, Trick $trick, EntityManagerInterface $manager,
+        Request     $request, Trick $trick, EntityManagerInterface $manager,
         SpamChecker $spamChecker, $tab = null, $pageNumber = 1, CommentRepository $commentRepository): Response
     {
         $tabs = [
@@ -159,14 +158,14 @@ class TrickController extends AbstractController
         $paginationComments = [];
         $paginationComments['pageNumber'] = $pageNumber;
         $paginationComments['itemsCount'] = $commentRepository->count(['trick' => $trick]);
-        if($paginationComments['pageNumber'] > 1) {
+        if ($paginationComments['pageNumber'] > 1) {
             $paginationComments['linkPrevious'] = $this->generateUrl('trick', [
                 'slug' => $trick->getSlug(),
                 'tab' => 'chat',
                 'pageNumber' => $paginationComments['pageNumber'] - 1
             ]);
         }
-        if($paginationComments['itemsCount'] > $paginationComments['pageNumber'] * 10) {
+        if ($paginationComments['itemsCount'] > $paginationComments['pageNumber'] * 10) {
             $paginationComments['linkNext'] = $this->generateUrl('trick', [
                 'slug' => $trick->getSlug(),
                 'tab' => 'chat',
@@ -183,5 +182,25 @@ class TrickController extends AbstractController
             'trick' => $trick,
             'tabs' => $tabs
         ]);
+
+
+    }
+
+
+    /**
+     * @Route("/delete-trick/{slug}", name="trick_delete", methods={"POST"})
+     * @IsGranted("ROLE_USER")
+     */
+    public function delete(Request $request, Trick $trick): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $trick->getSlug(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($trick);
+            $entityManager->flush();
+        }
+
+        $this->addFlash('success', "Le trick a été supprimé avec succès");
+
+        return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
     }
 }

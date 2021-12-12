@@ -41,9 +41,9 @@ class TrickVideoListener
             }
         }
 
-//        if(!$videoId) {
-//            return new
-//        }
+        if(!$videoId OR !$domain) {
+            return new \Exception("Aucune vidéo n'a été trouvée avec ce lien");
+        }
 
         $entity->setPlatformDomain($domain);
         $entity->setPlatformVideoId($videoId);

@@ -70,6 +70,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $token;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $accountConfirmed;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -244,6 +249,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setToken(?string $token): self
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+    public function getAccountConfirmed(): ?bool
+    {
+        return $this->accountConfirmed;
+    }
+
+    public function setAccountConfirmed(?bool $accountConfirmed): self
+    {
+        $this->accountConfirmed = $accountConfirmed;
 
         return $this;
     }

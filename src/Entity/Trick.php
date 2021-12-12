@@ -59,7 +59,7 @@ class Trick
 
     /**
      * @ORM\OneToOne(targetEntity=TrickImage::class, cascade={"persist"}, mappedBy="trick")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $featuredImage;
 

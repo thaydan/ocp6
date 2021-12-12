@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="17a67c15-0faa-4976-a010-3094def7828d" name="Changes" comment="enhancement" />
+    <list default="true" id="17a67c15-0faa-4976-a010-3094def7828d" name="Changes" comment="enhancement">
+      <change beforePath="$PROJECT_DIR$/src/Entity/Trick.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Trick.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,7 +22,6 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -313,6 +314,7 @@
       <workItem from="1639272413744" duration="164000" />
       <workItem from="1639272591665" duration="84000" />
       <workItem from="1639272687946" duration="43000" />
+      <workItem from="1639272742095" duration="214000" />
     </task>
     <task id="LOCAL-00001" summary="first version">
       <created>1632349054206</created>
@@ -461,7 +463,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639271270235</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="enhancement">
+      <created>1639272785139</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1639272785139</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

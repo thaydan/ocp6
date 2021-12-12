@@ -50,15 +50,17 @@ class TrickType extends AbstractType
                 'attr' => [
                     'class' => 'collection'
                 ],
+                'label' => false
             ])
             ->add('videos', CollectionType::class, [
-                'entry_type' => VideoType::class,
+                'entry_type' => TrickVideoType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
                 'attr' => [
                     'class' => 'collection'
                 ],
+                'label' => false
             ])
             ->add('group', EntityType::class, [
                 'class' => Group::class,
@@ -78,9 +80,6 @@ class TrickType extends AbstractType
                 ]);
         }
         $builder
-            ->add('cancel', SubmitType::class, [
-                'label' => 'Annuler'
-            ])
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer'
             ]);

@@ -25,8 +25,16 @@ services:
     App\Service\UploadFileService:
         arguments:
             $uploadDirectory: '%kernel.project_dir%/public%env(UPLOAD_DIRECTORY)%'
+    App\Listener\Doctrine\DeleteImageListener:
+        arguments:
+            $uploadDirectory: '%kernel.project_dir%/public%env(UPLOAD_DIRECTORY)%'
+        tags:
+            - { name: 'doctrine.event_listener', event: 'preRemove' }
 
     App\Listener\Doctrine\UploaderListener:
+        tags:
+            - { name: 'doctrine.event_listener', event: 'prePersist' }
+    App\Listener\Doctrine\TrickVideoListener:
         tags:
             - { name: 'doctrine.event_listener', event: 'prePersist' }
 

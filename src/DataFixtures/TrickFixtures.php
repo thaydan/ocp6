@@ -11,6 +11,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Faker;
 
 class TrickFixtures extends Fixture
 {
@@ -25,6 +26,7 @@ class TrickFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        $faker = Faker\Factory::create('fr_FR');
         $tricks = [];
 
         $tricksFixtures = [
@@ -54,28 +56,28 @@ class TrickFixtures extends Fixture
             ],
             [
                 'name' => 'Japan Air', 'img' => 1,
-                'description' => ''
+                'description' => $faker->text(rand(30, 55))
             ],
             [
-                'name' => 'Trick 8', 'img' => 1,
-                'description' => ''
+                'name' => 'Blanditiis aut', 'img' => 1,
+                'description' => $faker->text(rand(30, 55))
             ],
             [
-                'name' => 'Trick 9', 'img' => 1,
-                'description' => ''
+                'name' => 'Dignissimos molestiae', 'img' => 1,
+                'description' => $faker->text(rand(30, 55))
             ],
             [
-                'name' => 'Trick 10', 'img' => 1,
-                'description' => ''
+                'name' => 'Blanditiis aut', 'img' => 1,
+                'description' => $faker->text(rand(30, 55))
             ],
             [
-                'name' => 'Trick 11', 'img' => 1,
-                'description' => ''
+                'name' => 'Dignissimos molestiae', 'img' => 1,
+                'description' => $faker->text(rand(30, 55))
             ],
             [
-                'name' => 'Trick 12', 'img' => 1,
-                'description' => ''
-            ]
+                'name' => 'Dignissimos molestiae', 'img' => 1,
+                'description' => $faker->text(rand(30, 55))
+            ],
         ];
 
         $groups = [];
@@ -92,7 +94,7 @@ class TrickFixtures extends Fixture
 
 
         // add tricks
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 12; $i++) {
             $trickFixture = $tricksFixtures[$i];
 
             $trickFixture['slug'] = $this->slugger->slug(strtolower(str_replace('°', '', $trickFixture['name'])));
@@ -104,7 +106,7 @@ class TrickFixtures extends Fixture
                 ->setDescription($trickFixture['description'])
                 ->setCreatedAt(new \DateTimeImmutable())
                 ->setUpdatedAt(new \DateTimeImmutable());
-            if($i < count($groups)) {
+            if ($i < count($groups)) {
                 $trick->setGroup($groups[$i]);
             }
             $manager->persist($trick);
@@ -118,7 +120,7 @@ class TrickFixtures extends Fixture
                 $manager->persist($trickImage);
 
                 // make first image as featured
-                if($j == 1) {
+                if ($j == 1) {
                     $trick->setFeaturedImage($trickImage);
                     $manager->persist($trick);
                 }
@@ -127,37 +129,40 @@ class TrickFixtures extends Fixture
             $tricks[] = $trick;
         }
 
-        $usersFixtures = [
-            ['email' => 'eevi.wirta@example.com'],
-            ['email' => 'sanni.lauri@example.com'],
-            ['email' => 'phil.banks@example.com'],
-            ['email' => 'joana.mader@example.com'],
-        ];
-
 
         // add users and add linked comments
-        for ($i = 0; $i < 4; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $user = new User();
-            $user->setEmail($usersFixtures[$i]['email'])
-                ->setPassword($this->userPasswordHasher->hashPassword($user, "pass"))
-                ->setFirstName("FirstName$i")
-                ->setLastName("LastName$i")
-                ->setUsername("Username$i");
+            $user->setEmail($faker->email)
+                ->setPassword($this->userPasswordHasher->hashPassword($user, "demo"))
+                ->setFirstName($faker->firstName)
+                ->setLastName($faker->lastName)
+                ->setUsername($faker->firstName)
+                ->setAccountConfirmed(true);
+            if($i == 0) {
+                $user->setEmail('demo@gmail.com');
+            }
 
             $comment1 = (new Comment())
-                ->setComment('I ate a normal rock once. It did NOT taste like bacon!')
+                ->setComment($faker->realText(rand(40, 150)))
                 ->setCreatedAt(new \DateTimeImmutable())
-                ->setTrick($tricks[$i])
+                ->setTrick($tricks[0])
                 ->setUser($user);
             $comment2 = (new Comment())
-                ->setComment('I ate a normal rock once. It did NOT taste like bacon!')
+                ->setComment($faker->realText(rand(40, 150)))
                 ->setCreatedAt(new \DateTimeImmutable())
-                ->setTrick($tricks[$i])
+                ->setTrick($tricks[1])
+                ->setUser($user);
+            $comment3 = (new Comment())
+                ->setComment($faker->realText(rand(40, 150)))
+                ->setCreatedAt(new \DateTimeImmutable())
+                ->setTrick($tricks[3])
                 ->setUser($user);
 
             $manager->persist($user);
             $manager->persist($comment1);
             $manager->persist($comment2);
+            $manager->persist($comment3);
         }
 
 

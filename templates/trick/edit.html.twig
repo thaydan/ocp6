@@ -3,19 +3,24 @@
 {% block title %}{{ trick.title }}{% endblock %}
 
 {% block body %}
-    <section id="trick-header" class="page-section mt-4">
-        <div class="container" style="background-image: url({{ image(trick.featuredImage) }})">
-            <h1 class="masthead-heading text-uppercase">{{ trick.title }}</h1>
-        </div>
-    </section>
+        {% if trick.featuredImage %}
+        <section id="trick-header" class="page-section mt-4">
+            <div class="container" style="background-image: url({{ image(trick.featuredImage) }})">
+                <h1 class="masthead-heading text-uppercase">{{ trick.title }}</h1>
+            </div>
+        </section>
+        {% else %}
+            <section class="pb-3 mt-sm-5">
+                <div class="container">
+                    <h1 class="fs-2">Ajout d'un trick</h1>
+                </div>
+            </section>
+        {% endif %}
 
     <!-- Services-->
-    <section class="page-section" id="services">
+    <section class="page-section pt-0">
         <div class="container">
             {{ form_start(form) }}
-            {% if error %}
-                <div class="alert alert-danger">{{ error }}</div>
-            {% endif %}
             {{ form_row(form.title) }}
             {{ form_row(form.slug) }}
             {{ form_row(form.description) }}
@@ -33,7 +38,7 @@
                     {% endfor %}
                 </div>
                 <div class="row">
-                    <div class="w-25 m-auto">
+                    <div class="d-flex m-auto">
                         <div class="btn-primary btn add_item_link m-auto mt-3 d-block"
                              data-collection-holder-class="images">Ajouter une image
                         </div>
@@ -50,7 +55,7 @@
                     {% endfor %}
                 </div>
                 <div class="row">
-                    <div class="w-25 m-auto">
+                    <div class="d-flex m-auto">
                         <div class="btn-primary btn add_item_link m-auto mt-3 d-block"
                              data-collection-holder-class="videos">Ajouter une vidéo
                         </div>
@@ -58,6 +63,8 @@
                 </div>
             </div>
 
+            <div class="text-center mt-5">{{ form_errors(form) }}</div>
+            <div class="text-center mt-5">{{ form_row(form.save) }}</div>
             {{ form_end(form) }}
         </div>
     </section>
@@ -102,6 +109,11 @@
         const images = document.querySelectorAll('div.images > div')
         images.forEach((image) => {
             addTagFormDeleteLink(image)
+        })
+
+        const videos = document.querySelectorAll('div.videos > div')
+        videos.forEach((video) => {
+            addTagFormDeleteLink(video)
         })
 
         document

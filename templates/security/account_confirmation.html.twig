@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réinitialisation du mot de passe{% endblock %}
+
+{% block body %}
+    <section class="page-section d-flex align-items-center">
+        <div class="container">
+            <div class="row text-center w-50 m-auto">
+                <h1 class="h3 mb-5 font-weight-normal">Confirmation</h1>
+                <div>
+                    Votre compte a bien été validé.
+                </div>
+                <a href="{{ path('app_login') }}"
+                   class="btn btn-lg btn-primary mt-4">{{ button_label|default('Se connecter') }}</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

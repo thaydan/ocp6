@@ -7,9 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OrderBy;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
+ * @UniqueEntity(fields={"title", "slug"})
  */
 class Trick
 {
@@ -22,16 +25,19 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $slug;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
      */
     private $description;
 
@@ -46,19 +52,23 @@ class Trick
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="trick")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="trick", cascade={"persist", "remove"})
      * @OrderBy({"createdAt" = "DESC"})
      */
     private $comment;
 
     /**
-     * @ORM\OneToOne(targetEntity=TrickImage::class, cascade={"persist", "remove"}, mappedBy="trick")
+     * @ORM\OneToOne(targetEntity=TrickImage::class, cascade={"persist"}, mappedBy="trick")
      * @ORM\JoinColumn(nullable=true)
      */
     private $featuredImage;
 
     /**
-     * @ORM\OneToMany(targetEntity=TrickImage::class,cascade={"persist"}, mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=TrickImage::class,cascade={"persist", "remove"}, mappedBy="trick", orphanRemoval=true)
+     * @Assert\Count(
+     *      min = 1,
+     *      minMessage = "Vous devez ajouter au moins une image"
+     * )
      */
     private $images;
 

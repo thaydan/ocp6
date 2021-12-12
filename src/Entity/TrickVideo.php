@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\TrickVideoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TrickVideoRepository::class)
+ * @UniqueEntity(fields={"platformDomain", "platformVideoId"})
  */
 class TrickVideo
 {
@@ -19,19 +22,32 @@ class TrickVideo
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "Le titre doit fait plus de {{ limit }} caractères."
+     * )
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
-    private $url;
+    private $platformDomain;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     */
+    private $platformVideoId;
 
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="videos")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $trick;
+
+    private string $url;
 
     public function __toString()
     {
@@ -55,14 +71,26 @@ class TrickVideo
         return $this;
     }
 
-    public function getUrl(): ?string
+    public function getPlatformDomain(): ?string
     {
-        return $this->url;
+        return $this->platformDomain;
     }
 
-    public function setUrl(string $url): self
+    public function setPlatformDomain(?string $platformDomain): self
     {
-        $this->url = $url;
+        $this->platformDomain = $platformDomain;
+
+        return $this;
+    }
+
+    public function getPlatformVideoId(): ?string
+    {
+        return $this->platformVideoId;
+    }
+
+    public function setPlatformVideoId(?string $platformVideoId): self
+    {
+        $this->platformVideoId = $platformVideoId;
 
         return $this;
     }
@@ -77,5 +105,21 @@ class TrickVideo
         $this->trick = $trick;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl(): ?string
+    {
+        return $this->url ?? null;
+    }
+
+    /**
+     * @param string $url
+     */
+    public function setUrl(string $url): void
+    {
+        $this->url = $url;
     }
 }

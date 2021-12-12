@@ -41,15 +41,6 @@ class AccountType extends AbstractType
                     'class' => 'form-floating',
                 ],
             ])
-            ->add('email', EmailType::class, [
-                'attr' => [
-                    'placeholder' => 'Adresse e-mail',
-                ],
-                'label' => 'Adresse e-mail',
-                'row_attr' => [
-                    'class' => 'form-floating',
-                ],
-            ])
         ;
     }
 

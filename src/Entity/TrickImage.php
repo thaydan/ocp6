@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Entity\Upload\AUploadEntity;
 use App\Repository\TrickImageRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TrickImageRepository::class)
@@ -31,7 +30,7 @@ class TrickImage extends AUploadEntity
 
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="images")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $trick;
 

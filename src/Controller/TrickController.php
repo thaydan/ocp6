@@ -49,12 +49,8 @@ class TrickController extends AbstractController
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            var_dump($form->getErrors());die;
-            if ($form->get('cancel')->isClicked()) {
-                return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
-            }
 
+        if ($form->isSubmitted() && $form->isValid() && !empty($trick->getImages()->getValues())) {
             if (!$trick->getCreatedAt()) {
                 $trick->setCreatedAt(new \DateTimeImmutable());
             }
@@ -67,10 +63,6 @@ class TrickController extends AbstractController
                         $trick->setFeaturedImage(null);
                     }
                     $trick->removeImage($image);
-                    if ($image == $trick->getFeaturedImage()) {
-                        $newFeaturedImage = $trick->getImages()->getValues()[0];
-                        $trick->setFeaturedImage($newFeaturedImage);
-                    }
                 }
             }
             foreach ($originalVideos as $video) {
@@ -79,8 +71,18 @@ class TrickController extends AbstractController
                 }
             }
 
+            if (!$trick->getFeaturedImage()) {
+                $newFeaturedImage = $trick->getImages()->getValues()[0];
+                $trick->setFeaturedImage($newFeaturedImage);
+            }
+
             $manager->persist($trick);
             $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Les modifications ont été sauvegardées'
+            );
 
             if ($trick->getSlug() != $request->request->get('slug')) {
                 return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
@@ -89,19 +91,20 @@ class TrickController extends AbstractController
 
         return $this->render('trick/edit.html.twig', [
             'form' => $form->createView(),
-            'trick' => $trick,
+            'trick' => $trick
         ]);
     }
+
 
     /**
      * @Route("/trick/{slug}", name="trick")
      * @Route("/trick/{slug}/{tab}", name="trick")
+     * @Route("/trick/{slug}/{tab}/{pageNumber}", name="trick")
      */
     public function trick(
-        Request $request, Trick $trick, EntityManagerInterface $manager,
-        SpamChecker $spamChecker, $tab = null, CommentRepository $commentRepository): Response
+        Request     $request, Trick $trick, EntityManagerInterface $manager,
+        SpamChecker $spamChecker, $tab = null, $pageNumber = 1, CommentRepository $commentRepository): Response
     {
-        $formCommentError = null;
         $tabs = [
             'gallery' => ['active' => false],
             'informations' => ['active' => false],
@@ -113,10 +116,8 @@ class TrickController extends AbstractController
         }
         $tabs[$activeTab]['active'] = ' show active ';
 
-        $commentsCount = $commentRepository->count(['trick' => $trick]);
-        $comments = $commentRepository->findBy(['trick' => $trick], ['createdAt' => 'DESC'], 10, 0);
 
-
+        /* form add comment */
         if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             $newComment = new Comment();
             $formComment = $this->createFormBuilder($newComment)
@@ -136,21 +137,70 @@ class TrickController extends AbstractController
                 $manager->persist($newComment);
 
                 if ($spamChecker->getSpamScore($newComment) > 0) {
-                    $formCommentError = 'Votre commentaire est considéré comme du spam. Veuillez écrire autre chose.';
+                    $this->addFlash(
+                        'danger',
+                        'Votre commentaire a été refusé.<br>Veuillez écrire autre chose.'
+                    );
                 } else {
                     $manager->flush();
+
+                    $this->addFlash(
+                        'success',
+                        'Votre commentaire a été ajouté.'
+                    );
                 }
             }
             $formCommentView = $formComment->createView();
         }
+        /* end form add comment */
+
+        /* comments pagination */
+        $paginationComments = [];
+        $paginationComments['pageNumber'] = $pageNumber;
+        $paginationComments['itemsCount'] = $commentRepository->count(['trick' => $trick]);
+        if ($paginationComments['pageNumber'] > 1) {
+            $paginationComments['linkPrevious'] = $this->generateUrl('trick', [
+                'slug' => $trick->getSlug(),
+                'tab' => 'chat',
+                'pageNumber' => $paginationComments['pageNumber'] - 1
+            ]);
+        }
+        if ($paginationComments['itemsCount'] > $paginationComments['pageNumber'] * 10) {
+            $paginationComments['linkNext'] = $this->generateUrl('trick', [
+                'slug' => $trick->getSlug(),
+                'tab' => 'chat',
+                'pageNumber' => $paginationComments['pageNumber'] + 1
+            ]);
+        }
+        /* end comment pagination */
+        $comments = $commentRepository->findBy(['trick' => $trick], ['createdAt' => 'DESC'], 10, ($paginationComments['pageNumber'] - 1) * 10);
 
         return $this->render('trick/trick.html.twig', [
             'formComment' => $formCommentView ?? null,
-            'formCommentError' => $formCommentError,
             'comments' => $comments,
-            'commentsCount' => $commentsCount,
+            'paginationComments' => $paginationComments,
             'trick' => $trick,
             'tabs' => $tabs
         ]);
+
+
+    }
+
+
+    /**
+     * @Route("/delete-trick/{slug}", name="trick_delete", methods={"POST"})
+     * @IsGranted("ROLE_USER")
+     */
+    public function delete(Request $request, Trick $trick): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $trick->getSlug(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($trick);
+            $entityManager->flush();
+        }
+
+        $this->addFlash('success', "Le trick a été supprimé avec succès");
+
+        return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
     }
 }

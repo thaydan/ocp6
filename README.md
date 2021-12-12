@@ -1,5 +1,7 @@
 # Snowboard Tricks
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7b19445fdaa44e54b863797ad411f556)](https://app.codacy.com/gh/thaydan/ocp6?utm_source=github.com&utm_medium=referral&utm_content=thaydan/ocp6&utm_campaign=Badge_Grade_Settings)
+
 ## Requirements
 
 You need :

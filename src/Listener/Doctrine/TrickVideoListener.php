@@ -5,7 +5,6 @@ namespace App\Listener\Doctrine;
 
 use App\Entity\TrickVideo;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
-use Symfony\Component\Dotenv\Exception\FormatException;
 
 class TrickVideoListener
 {
@@ -26,22 +25,24 @@ class TrickVideoListener
         if ($domain == 'youtube.com') {
             preg_match_all("/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/",
                 $entity->getUrl(), $matchesId, PREG_PATTERN_ORDER);
-            $videoId = $matchesId[7][0];
-        } else if ($domain == 'dailymotion.com') {
+            if (count($matchesId[2]) != 0) {
+                $videoId = $matchesId[7][0];
+            }
+        } elseif ($domain == 'dailymotion.com') {
             preg_match_all("/^.+dailymotion.com\/(video|hub)\/([^_]+)[^#]*(#video=([^_&]+))?/",
                 $entity->getUrl(), $matchesId, PREG_PATTERN_ORDER);
-            if(sizeof($matchesId[2]) != 0) {
+            if (count($matchesId[2]) != 0) {
                 $videoId = $matchesId[2][0];
             }
-        } else if ($domain == 'vimeo.com') {
+        } elseif ($domain == 'vimeo.com') {
             preg_match_all("/(http|https)?:\/\/(www\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|)(\d+)(?:|\/\?)/",
                 $entity->getUrl(), $matchesId, PREG_PATTERN_ORDER);
-            if(sizeof($matchesId[4]) != 0) {
+            if (count($matchesId[4]) != 0) {
                 $videoId = $matchesId[4][0];
             }
         }
 
-        if(!$videoId OR !$domain) {
+        if (!$videoId or !$domain) {
             return new \Exception("Aucune vidéo n'a été trouvée avec ce lien");
         }
 

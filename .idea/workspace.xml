@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="17a67c15-0faa-4976-a010-3094def7828d" name="Changes" comment="enhancement" />
+    <list default="true" id="17a67c15-0faa-4976-a010-3094def7828d" name="Changes" comment="enhancement">
+      <change afterPath="$PROJECT_DIR$/public/uploads/fixtures/snowboard-mute-grab-1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/fixtures/snowboard-mute-grab-2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/fixtures/snowboard-mute-grab-3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/fixtures/snowboard-mute-grab-4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/river-6853339-1280-61b79c2651a64.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Listener/Doctrine/DeleteImageListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Listener/Doctrine/DeleteImageListener.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Listener/Doctrine/TrickVideoListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Listener/Doctrine/TrickVideoListener.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/SpamChecker.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/SpamChecker.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -182,7 +199,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dumpAutoload C:/wamp64/www/ocp6-dev/composer.json" value="--no-interaction --ansi --verbose" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/uploads/fixtures" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/uploads" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -191,9 +208,9 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\ocp6-dev\public\uploads" />
       <recent name="C:\wamp64\www\ocp6-dev\public\uploads\fixtures" />
       <recent name="C:\wamp64\www\ocp6-dev\public\uploads\fixtures-backup" />
-      <recent name="C:\wamp64\www\ocp6-dev\public\uploads" />
       <recent name="C:\wamp64\www\ocp6-dev\templates\components" />
       <recent name="C:\wamp64\www\ocp6-dev\src\Listener\Doctrine" />
     </key>
@@ -313,6 +330,8 @@
       <workItem from="1639272591665" duration="84000" />
       <workItem from="1639272687946" duration="43000" />
       <workItem from="1639272742095" duration="313000" />
+      <workItem from="1639388468435" duration="782000" />
+      <workItem from="1639415655952" duration="6331000" />
     </task>
     <task id="LOCAL-00001" summary="first version">
       <created>1632349054206</created>
@@ -475,7 +494,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639273032806</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="enhancement">
+      <created>1639388478676</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1639388478677</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

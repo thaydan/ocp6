@@ -18,7 +18,7 @@ class SpamChecker extends AbstractController
     {
         $this->request = $requestStack->getCurrentRequest();
         $this->client = $client;
-        $this->endpoint = sprintf('https://%s.rest.akismet.com/1.1/comment-check', $_ENV['AKISMET_KEY']);
+        $this->endpoint = sprintf('https://%s.rest.akismet.com/1.1/comment-check', $this->getParameter('app.akismetKey'));
     }
 
     /**

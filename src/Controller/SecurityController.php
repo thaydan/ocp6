@@ -98,7 +98,7 @@ class SecurityController extends AbstractController
                     "email" => $user->getEmail(),
                     "token" => $token
                 ];
-                $tokenEncoded = JWT::encode($payload, $_ENV['APP_SECRET'], 'HS256');
+                $tokenEncoded = JWT::encode($payload, $this->getParameter('app.secret'), 'HS256');
 
                 $confirmationLink = $request->getUriForPath($this->generateUrl('app_confirm_account', ['token' => $tokenEncoded]));
                 $email = (new Email())
@@ -160,7 +160,7 @@ class SecurityController extends AbstractController
                     "email" => $userWithThisEmail->getEmail(),
                     "token" => $token
                 ];
-                $tokenEncoded = JWT::encode($payload, $_ENV['APP_SECRET'], 'HS256');
+                $tokenEncoded = JWT::encode($payload, $this->getParameter('app.secret'), 'HS256');
 
                 $resetPasswordLink = $request->getUriForPath($this->generateUrl('app_reset_password_token', ['token' => $tokenEncoded]));
                 $email = (new Email())
@@ -196,7 +196,7 @@ class SecurityController extends AbstractController
         }
         if ($token) {
             try {
-                $jwt = JWT::decode($token, new Key($_ENV['APP_SECRET'], 'HS256'));
+                $jwt = JWT::decode($token, new Key($this->getParameter('app.secret'), 'HS256'));
             } catch (Exception $e) {
                 return $this->redirectToRoute('home');
             }
@@ -237,7 +237,7 @@ class SecurityController extends AbstractController
     {
         if ($token) {
             try {
-                $jwt = JWT::decode($token, new Key($_ENV['APP_SECRET'], 'HS256'));
+                $jwt = JWT::decode($token, new Key($this->getParameter('app.secret'), 'HS256'));
             } catch (Exception $e) {
                 return $this->redirectToRoute('home');
             }

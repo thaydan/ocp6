@@ -5,6 +5,7 @@ namespace App\Listener\Doctrine;
 
 use App\Entity\TrickImage;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
+use Symfony\Component\Filesystem\Filesystem;
 
 class DeleteImageListener
 {
@@ -24,8 +25,9 @@ class DeleteImageListener
         }
 
         $file = $this->uploadDirectory . '/' . $entity->getFilename();
-        if(file_exists($file)) {
-            unlink($file);
+        $filesystem = new Filesystem();
+        if($filesystem->exists($file)) {
+            $filesystem->remove($file);
         }
     }
 }

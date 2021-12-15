@@ -12,8 +12,8 @@ body {
 
 /* width */
 @media screen and (max-width: 576px) {
-    .w-50{
-        width: 100%!important;
+    .w-50 {
+        width: 100% !important;
     }
 }
 
@@ -23,21 +23,26 @@ body {
     padding-bottom: 1rem;
     background-color: var(--background-header);
 }
+
 #mainNav.navbar-transparent {
     background-color: transparent;
 }
+
 #mainNav .navbar-toggler {
     background-color: #212529;
 }
+
 #mainNav .navbar-collapse {
     background-color: var(--background-header);
     padding: 0 16px;
     margin: 4px -12px 0 -12px;
     text-align: center;
 }
+
 #mainNav.navbar-shrink {
     background-color: var(--background-header);
 }
+
 @media (min-width: 992px) {
     #mainNav .navbar-collapse {
         background-color: transparent;
@@ -78,6 +83,7 @@ body {
     padding: 15px;
     border-radius: 4px;
 }
+
 #btn-go-to-top:hover {
     background-color: #555;
 }
@@ -86,14 +92,18 @@ body {
 label {
     margin-bottom: 8px;
 }
+
 input, textarea {
     margin-bottom: 16px;
 }
 
 /* form */
-.form-floating > .form-control:focus ~ label, .form-floating > .form-control:not(:placeholder-shown) ~ label, .form-floating > .form-select ~ label {
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-select ~ label {
     opacity: inherit;
 }
+
 .form-floating > label {
     color: rgba(0, 0, 0, 0.6);
 }
@@ -102,6 +112,7 @@ input, textarea {
 .collection fieldset > legend {
     display: none;
 }
+
 .collection .row {
     row-gap: 22px;
 }
@@ -111,6 +122,7 @@ input, textarea {
     flex: 1;
     padding: 10rem 0 6rem 0;
 }
+
 .page-section h2.section-heading, .page-section .section-heading.h2 {
     font-size: 2rem;
 }
@@ -122,6 +134,7 @@ header.masthead {
     padding-bottom: 18vh;
     flex: none;
 }
+
 header .masthead-hover {
     display: none;
     position: absolute;
@@ -129,23 +142,28 @@ header .masthead-hover {
     right: 0;
     bottom: 0;
     left: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(33,89,187,0.577468487394958) 44%, rgba(33,89,187,0.577468487394958) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(33, 89, 187, 0.577468487394958) 44%, rgba(33, 89, 187, 0.577468487394958) 100%);
 }
+
 @media screen and (max-width: 576px) {
     header.masthead {
         padding-top: 38vh;
     }
+
     header .masthead-hover {
         display: block;
     }
 }
+
 header.masthead + .page-section {
     padding: 6rem 0;
 }
+
 header .masthead-content {
     position: relative;
     z-index: 1;
 }
+
 header .masthead-heading {
     margin-bottom: 40vh;
 }
@@ -159,40 +177,48 @@ header .masthead-heading {
     margin-right: auto;
     height: 100%;
 }
+
 .trick-item .trick-link {
     position: relative;
     display: block;
     margin: 0;
 }
+
 .trick-item .trick-link .img-fluid {
     width: 100%;
     height: 280px;
     object-fit: cover;
 }
+
 .trick-item .trick-caption {
     height: 100%;
     padding: 1.5rem;
     text-align: center;
     background-color: #fff;
 }
+
 .trick-item:hover .trick-caption {
     color: #ffc800;
 }
+
 .trick-item .trick-caption .trick-caption-heading {
     font-size: 1.5rem;
     font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-weight: 700;
     margin-bottom: 0;
 }
+
 .trick-item .trick-caption .trick-caption-subheading {
     font-style: italic;
     font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
 @media screen and (max-width: 1400px) {
     .trick-item .trick-link .img-fluid {
         height: 240px;
     }
 }
+
 @media screen and (max-width: 1200px) {
     .trick-item .trick-link .img-fluid {
         height: 190px;
@@ -218,10 +244,12 @@ header .masthead-heading {
     align-items: center;
     margin-left: auto;
 }
+
 .modal-nav .btn {
     font-size: 30px;
     padding: 0 12px;
 }
+
 .modal-number {
     top: 1.5rem;
     left: 1.5rem;
@@ -230,17 +258,21 @@ header .masthead-heading {
     align-items: center;
     color: var(--bs-gray);
 }
+
 .modal-header {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     font-size: 18px;
 }
+
 .modal-content {
     padding-top: 0 !important;
 }
+
 .modal-title {
     text-align: center;
 }
+
 .close-modal {
     position: inherit !important;
     width: 2rem !important;
@@ -261,6 +293,7 @@ header .masthead-heading {
 #trick-header {
     padding-top: 6rem;
 }
+
 #trick-header .container {
     text-align: center;
     color: #fff;
@@ -276,7 +309,8 @@ header .masthead-heading {
 }
 
 /* trick images & videos auto-collection */
-#trick_images.collection, #trick_videos.collection ~ legend {
+#trick_images.collection,
+#trick_videos.collection ~ legend {
     display: none;
 }
 
@@ -284,10 +318,12 @@ header .masthead-heading {
 .trick-delete-form button {
     padding: 0;
 }
+
 .trick-delete-form svg {
     font-size: 23px;
     color: #ffc800;
 }
+
 .trick-delete-form svg:hover {
     color: #cca000;
 }

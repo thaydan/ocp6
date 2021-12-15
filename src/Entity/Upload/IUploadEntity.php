@@ -14,5 +14,5 @@ interface IUploadEntity
 
     public function setFile(?UploadedFile $file): self;
 
-    public function getUploadDirectory(string $uploadDirectory): self;
+    public function getUploadDirectory(): string;
 }

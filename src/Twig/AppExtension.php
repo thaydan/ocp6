@@ -2,31 +2,23 @@
 
 namespace App\Twig;
 
-use App\Entity\SidebarItem;
 use App\Entity\TrickImage;
-use App\Repository\SidebarItemRepository;
-use Doctrine\Persistence\ManagerRegistry;
-use Twig\Environment;
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
 {
-    private Environment $environment;
-    private ManagerRegistry $doctrine;
+    private string $uploadDirectory;
 
-    public function __construct(Environment $environment, ManagerRegistry $registry)
+    public function __construct(string $uploadDirectory)
     {
-        $this->environment = $environment;
-        $this->doctrine = $registry;
+        $this->uploadDirectory = $uploadDirectory;
     }
 
     /* initialisation of getFilters and getFunctions */
     public function getFilters()
     {
-        return [
-        ];
+        return [];
     }
 
     public function getFunctions()
@@ -46,7 +38,7 @@ class AppExtension extends AbstractExtension
         if(!$image) {
             return '';
         }
-        return $_ENV['UPLOAD_DIRECTORY'] . '/' . $image->getFilename();
+        return $this->uploadDirectory . '/' . $image->getFilename();
     }
 
     function gravatar($email): string

@@ -24,7 +24,7 @@ class TrickController extends AbstractController
      * @Route("/trick/{slug}/edit", name="trick_edit")
      * @IsGranted("ROLE_USER")
      */
-    public function edit(Request $request, EntityManagerInterface $manager, Trick $trick = null, $slug = null): Response
+    public function edit(Request $request, EntityManagerInterface $manager, Trick $trick = null): Response
     {
         $routeName = $request->attributes->get('_route');
         if ($routeName == 'trick_edit' && !$trick) {
@@ -103,7 +103,7 @@ class TrickController extends AbstractController
      */
     public function trick(
         Request     $request, Trick $trick, EntityManagerInterface $manager,
-        SpamChecker $spamChecker, $tab = null, $pageNumber = 1, CommentRepository $commentRepository): Response
+        SpamChecker $spamChecker, CommentRepository $commentRepository): Response
     {
         $tabs = [
             'gallery' => ['active' => false],
@@ -111,6 +111,7 @@ class TrickController extends AbstractController
             'chat' => ['active' => false]
         ];
         $activeTab = 'gallery';
+        $tab = $this->getParameter('tab');
         if ($tab === 'informations' or $tab === 'chat') {
             $activeTab = $tab;
         }
@@ -156,7 +157,7 @@ class TrickController extends AbstractController
 
         /* comments pagination */
         $paginationComments = [];
-        $paginationComments['pageNumber'] = $pageNumber;
+        $paginationComments['pageNumber'] = $this->getParameter('pageNumber');
         $paginationComments['itemsCount'] = $commentRepository->count(['trick' => $trick]);
         if ($paginationComments['pageNumber'] > 1) {
             $paginationComments['linkPrevious'] = $this->generateUrl('trick', [

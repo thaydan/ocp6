@@ -8,6 +8,8 @@ parameters:
     app.secret: '%env(APP_SECRET)%'
     app.akismetKey: '%env(AKISMET_KEY)%'
     app.uploadDirectory: '%env(UPLOAD_DIRECTORY)%'
+    app.mailerSenderEmail: '%env(MAILER_SENDER_EMAIL)%'
+    app.mailerSenderName: '%env(MAILER_SENDER_NAME))%'
 
 services:
     # default configuration for services in *this* file
@@ -25,6 +27,9 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
 
+    App\Entity\TrickImage:
+        arguments:
+            $uploadDirectory: '%kernel.project_dir%/public%env(UPLOAD_DIRECTORY)%'
     App\Twig\AppExtension:
         arguments:
             $uploadDirectory: '%kernel.project_dir%/public%env(UPLOAD_DIRECTORY)%'

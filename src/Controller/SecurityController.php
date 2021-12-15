@@ -102,7 +102,7 @@ class SecurityController extends AbstractController
 
                 $confirmationLink = $request->getUriForPath($this->generateUrl('app_confirm_account', ['token' => $tokenEncoded]));
                 $email = (new Email())
-                    ->from(new Address($_ENV['MAILER_SENDER_EMAIL'], $_ENV['MAILER_SENDER_NAME']))
+                    ->from(new Address($this->getParameter('app.mailerSenderEmail'), $this->getParameter('app.mailerSenderName')))
                     ->to($user->getEmail())
                     ->subject('Activation de votre compte')
                     ->text('Activer mon compte : ' . $confirmationLink)
@@ -233,7 +233,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/confirm-account/{token}", name="app_confirm_account")
      */
-    public function confirmAccount(?string $token, Request $request, EntityManagerInterface $manager): Response
+    public function confirmAccount(?string $token, EntityManagerInterface $manager): Response
     {
         if ($token) {
             try {

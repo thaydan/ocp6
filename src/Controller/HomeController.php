@@ -22,13 +22,11 @@ class HomeController extends AbstractController
         $paginationTricks['pageNumber'] = $pageNumber;
         $paginationTricks['itemsCount'] = $repo->count([]);
         if($paginationTricks['pageNumber'] > 1) {
+            $paginationTricks['linkPrevious'] = $this->generateUrl('home_pagination', [
+                    'pageNumber' => $paginationTricks['pageNumber'] - 1
+                ]) . '#tricks';
             if($paginationTricks['pageNumber'] == 2) {
                 $paginationTricks['linkPrevious'] = $this->generateUrl('home') . '#tricks';
-            }
-            else {
-                $paginationTricks['linkPrevious'] = $this->generateUrl('home_pagination', [
-                        'pageNumber' => $paginationTricks['pageNumber'] - 1
-                    ]) . '#tricks';
             }
         }
         if($paginationTricks['itemsCount'] > $paginationTricks['pageNumber'] * 10) {

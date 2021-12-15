@@ -6,12 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="17a67c15-0faa-4976-a010-3094def7828d" name="Changes" comment="enhancement">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TrickController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TrickController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/TrickImage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/TrickImage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Upload/IUploadEntity.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Upload/IUploadEntity.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Twig/AppExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/AppExtension.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Referer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Referer.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -326,7 +323,7 @@
       <workItem from="1639272742095" duration="313000" />
       <workItem from="1639388468435" duration="782000" />
       <workItem from="1639415655952" duration="7570000" />
-      <workItem from="1639603104349" duration="3919000" />
+      <workItem from="1639603104349" duration="5000000" />
     </task>
     <task id="LOCAL-00001" summary="first version">
       <created>1632349054206</created>
@@ -503,7 +500,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639432306486</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="enhancement">
+      <created>1639609077152</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1639609077152</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

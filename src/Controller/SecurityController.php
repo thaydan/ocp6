@@ -164,7 +164,7 @@ class SecurityController extends AbstractController
 
                 $resetPasswordLink = $request->getUriForPath($this->generateUrl('app_reset_password_token', ['token' => $tokenEncoded]));
                 $email = (new Email())
-                    ->from(new Address($_ENV['MAILER_SENDER_EMAIL'], $_ENV['MAILER_SENDER_NAME']))
+                    ->from(new Address($this->getParameter('app.mailerSenderEmail'), $this->getParameter('app.mailerSenderName')))
                     ->to($userWithThisEmail->getEmail())
                     ->subject('Réinitialisation de votre mot de passe')
                     ->text('Réinitialiser mon mot de passe : ' . $resetPasswordLink)

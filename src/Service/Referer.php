@@ -41,9 +41,8 @@ class Referer
     {
         if ($this->get()) {
             return new RedirectResponse($this->get());
-        } else {
-            return new RedirectResponse($this->router->generate('home'));
         }
+        return new RedirectResponse($this->router->generate('home'));
     }
 
     public function setAndGo()

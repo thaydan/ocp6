@@ -98,9 +98,9 @@ input, textarea {
 }
 
 /* form */
+.form-floating > .form-select ~ label,
 .form-floating > .form-control:focus ~ label,
-.form-floating > .form-control:not(:placeholder-shown) ~ label,
-.form-floating > .form-select ~ label {
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
     opacity: inherit;
 }
 

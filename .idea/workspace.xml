@@ -1,39 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AnalysisUIOptions">
-    <option name="SCOPE_TYPE" value="3" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="17a67c15-0faa-4976-a010-3094def7828d" name="Changes" comment="enhancement">
+    <list default="true" id="517f690b-6962-4563-aa72-4edaaeb39790" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Form/CommentAddFormType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/trick/_tricks.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ocp6-dev.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ocp6-dev.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/symfony2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/symfony2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/custom-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/custom-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/fixtures/snowboard-mute-grab-1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/fixtures/snowboard-mute-grab-2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/fixtures/snowboard-mute-grab-3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/fixtures/snowboard-mute-grab-4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/TrickController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TrickController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/TrickFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/TrickFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Trick.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Trick.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/TrickImage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/TrickImage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Upload/IUploadEntity.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Upload/IUploadEntity.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/SpamChecker.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/SpamChecker.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/security/account.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/account.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" doNotAsk="true" synchronizationState="DONT_SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution>
-      <executable path="composer" />
-    </execution>
+    <execution />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="end" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -63,6 +68,8 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
       <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-migrations-bundle" />
       <path value="$PROJECT_DIR$/vendor/doctrine/common" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
       <path value="$PROJECT_DIR$/vendor/sebastian/type" />
       <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
       <path value="$PROJECT_DIR$/vendor/doctrine/persistence" />
@@ -163,53 +170,26 @@
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
       <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/vendor/fakerphp/faker" />
+      <path value="$PROJECT_DIR$/vendor/symfony/google-mailer" />
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
-      <path value="$PROJECT_DIR$/vendor/symfony/google-mailer" />
       <path value="$PROJECT_DIR$/vendor/firebase/php-jwt" />
-      <path value="$PROJECT_DIR$/vendor/fakerphp/faker" />
     </include_path>
   </component>
-  <component name="ProjectId" id="1yVnGUL1kJISHr14dD37IL2cWrm" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="22LVDGz1QZJgb6vUJTGy6jvB5KK" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="dumpAutoload C:/wamp64/www/ocp6-dev/composer.json" value="--no-interaction --ansi --verbose" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/uploads" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\wamp64\www\ocp6-dev\public\uploads" />
-      <recent name="C:\wamp64\www\ocp6-dev\public\uploads\fixtures" />
-      <recent name="C:\wamp64\www\ocp6-dev\public\uploads\fixtures-backup" />
-      <recent name="C:\wamp64\www\ocp6-dev\templates\components" />
-      <recent name="C:\wamp64\www\ocp6-dev\src\Listener\Doctrine" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\wamp64\www\ocp6-dev\templates\trick" />
-      <recent name="C:\wamp64\www\ocp6-dev\templates\trick\tab" />
-      <recent name="C:\wamp64\www\ocp6-dev\public\uploads" />
-      <recent name="C:\wamp64\www\ocp6-dev\src\Service" />
-      <recent name="C:\wamp64\www\ocp6-dev\templates\security" />
-    </key>
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml.dist" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -220,306 +200,14 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="17a67c15-0faa-4976-a010-3094def7828d" name="Changes" comment="" />
-      <created>1632345528332</created>
+      <changelist id="517f690b-6962-4563-aa72-4edaaeb39790" name="Changes" comment="" />
+      <created>1639616735563</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1632345528332</updated>
-      <workItem from="1632345530587" duration="6619000" />
-      <workItem from="1632428034927" duration="8861000" />
-      <workItem from="1632482998105" duration="3511000" />
-      <workItem from="1632511502086" duration="1513000" />
-      <workItem from="1632569432144" duration="9487000" />
-      <workItem from="1632597630343" duration="9046000" />
-      <workItem from="1632621141931" duration="5395000" />
-      <workItem from="1632662135246" duration="226000" />
-      <workItem from="1632695104484" duration="651000" />
-      <workItem from="1632724375864" duration="2324000" />
-      <workItem from="1632774492198" duration="41000" />
-      <workItem from="1632812311788" duration="2044000" />
-      <workItem from="1632897754040" duration="2180000" />
-      <workItem from="1632912985431" duration="2137000" />
-      <workItem from="1632995300573" duration="5288000" />
-      <workItem from="1633089035025" duration="3361000" />
-      <workItem from="1633161345687" duration="8008000" />
-      <workItem from="1633214469078" duration="389000" />
-      <workItem from="1633269090559" duration="6086000" />
-      <workItem from="1633278602853" duration="1240000" />
-      <workItem from="1633291559829" duration="218000" />
-      <workItem from="1633339171072" duration="99000" />
-      <workItem from="1633372151867" duration="997000" />
-      <workItem from="1633622276877" duration="1244000" />
-      <workItem from="1633642510091" duration="737000" />
-      <workItem from="1633702113196" duration="604000" />
-      <workItem from="1633786243042" duration="12531000" />
-      <workItem from="1633802888007" duration="651000" />
-      <workItem from="1633878004510" duration="603000" />
-      <workItem from="1633934311667" duration="664000" />
-      <workItem from="1633987977149" duration="1055000" />
-      <workItem from="1634034725671" duration="1220000" />
-      <workItem from="1634142272967" duration="2772000" />
-      <workItem from="1634286514589" duration="2527000" />
-      <workItem from="1634387668036" duration="42000" />
-      <workItem from="1634483616697" duration="2609000" />
-      <workItem from="1634766994371" duration="601000" />
-      <workItem from="1634818975733" duration="640000" />
-      <workItem from="1634823976120" duration="20972000" />
-      <workItem from="1634896547427" duration="1314000" />
-      <workItem from="1634932287873" duration="49000" />
-      <workItem from="1635097671604" duration="10000" />
-      <workItem from="1635321890989" duration="127000" />
-      <workItem from="1635346844418" duration="1189000" />
-      <workItem from="1635361642990" duration="11000" />
-      <workItem from="1635413252827" duration="885000" />
-      <workItem from="1635426141419" duration="596000" />
-      <workItem from="1635450058804" duration="1368000" />
-      <workItem from="1635488179628" duration="1300000" />
-      <workItem from="1635785628326" duration="789000" />
-      <workItem from="1636029279495" duration="5992000" />
-      <workItem from="1636068826810" duration="768000" />
-      <workItem from="1636101268097" duration="1207000" />
-      <workItem from="1636373126179" duration="656000" />
-      <workItem from="1636395056954" duration="1193000" />
-      <workItem from="1636444025659" duration="6503000" />
-      <workItem from="1636622392454" duration="41783000" />
-      <workItem from="1636714234455" duration="1738000" />
-      <workItem from="1636716494994" duration="8804000" />
-      <workItem from="1636730758899" duration="4881000" />
-      <workItem from="1636828549426" duration="1194000" />
-      <workItem from="1637224269667" duration="12943000" />
-      <workItem from="1637248543338" duration="4092000" />
-      <workItem from="1637319697689" duration="2491000" />
-      <workItem from="1637496451882" duration="612000" />
-      <workItem from="1637499978446" duration="732000" />
-      <workItem from="1637834955244" duration="5186000" />
-      <workItem from="1637909067633" duration="17605000" />
-      <workItem from="1637936561275" duration="13470000" />
-      <workItem from="1638004383298" duration="5268000" />
-      <workItem from="1638098838532" duration="7388000" />
-      <workItem from="1638197879169" duration="12596000" />
-      <workItem from="1638378242494" duration="3639000" />
-      <workItem from="1638481408905" duration="18497000" />
-      <workItem from="1638528122907" duration="5850000" />
-      <workItem from="1638713424566" duration="50000" />
-      <workItem from="1638715925206" duration="2346000" />
-      <workItem from="1638721697882" duration="782000" />
-      <workItem from="1638722799038" duration="1260000" />
-      <workItem from="1639000160995" duration="5215000" />
-      <workItem from="1639005782734" duration="234000" />
-      <workItem from="1639006026855" duration="21000" />
-      <workItem from="1639039694335" duration="625000" />
-      <workItem from="1639042974940" duration="104000" />
-      <workItem from="1639051736051" duration="20526000" />
-      <workItem from="1639130813158" duration="23941000" />
-      <workItem from="1639224276332" duration="12761000" />
-      <workItem from="1639242348665" duration="15424000" />
-      <workItem from="1639258310265" duration="1361000" />
-      <workItem from="1639259735428" duration="8093000" />
-      <workItem from="1639272413744" duration="164000" />
-      <workItem from="1639272591665" duration="84000" />
-      <workItem from="1639272687946" duration="43000" />
-      <workItem from="1639272742095" duration="313000" />
-      <workItem from="1639388468435" duration="782000" />
-      <workItem from="1639415655952" duration="7570000" />
-      <workItem from="1639603104349" duration="6657000" />
+      <updated>1639616735563</updated>
+      <workItem from="1639616738152" duration="704000" />
+      <workItem from="1639644825537" duration="8889000" />
     </task>
-    <task id="LOCAL-00001" summary="first version">
-      <created>1632349054206</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1632349054206</updated>
-    </task>
-    <task id="LOCAL-00002" summary="initialisation and bootstrap integration">
-      <created>1632695170351</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1632695170351</updated>
-    </task>
-    <task id="LOCAL-00003" summary="trick page issue 3-4">
-      <created>1632899893031</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1632899893031</updated>
-    </task>
-    <task id="LOCAL-00004" summary="trick page issue 3-4">
-      <created>1633802482848</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1633802482848</updated>
-    </task>
-    <task id="LOCAL-00005" summary="issue 8-9">
-      <created>1636662004420</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1636662004420</updated>
-    </task>
-    <task id="LOCAL-00006" summary="issue 8-9">
-      <created>1636680343850</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1636680343850</updated>
-    </task>
-    <task id="LOCAL-00007" summary="issue 8-9">
-      <created>1636681413670</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1636681413670</updated>
-    </task>
-    <task id="LOCAL-00008" summary="issue 8-9">
-      <created>1636681486391</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1636681486391</updated>
-    </task>
-    <task id="LOCAL-00009" summary="issue 8-9">
-      <created>1636688994284</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1636688994284</updated>
-    </task>
-    <task id="LOCAL-00010" summary="issue 8-9">
-      <created>1637936648351</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1637936648351</updated>
-    </task>
-    <task id="LOCAL-00011" summary="issue 8-9">
-      <created>1637952383251</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1637952383251</updated>
-    </task>
-    <task id="LOCAL-00012" summary="ameliorations">
-      <created>1638506514687</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1638506514687</updated>
-    </task>
-    <task id="LOCAL-00013" summary="ameliorations">
-      <created>1638721747865</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1638721747865</updated>
-    </task>
-    <task id="LOCAL-00014" summary="ameliorations">
-      <created>1639006041378</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1639006041378</updated>
-    </task>
-    <task id="LOCAL-00015" summary="enhancement">
-      <created>1639094515375</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1639094515375</updated>
-    </task>
-    <task id="LOCAL-00016" summary="enhancement">
-      <created>1639102718984</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1639102718984</updated>
-    </task>
-    <task id="LOCAL-00017" summary="enhancement">
-      <created>1639190783397</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1639190783397</updated>
-    </task>
-    <task id="LOCAL-00018" summary="enhancement">
-      <created>1639238099730</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1639238099730</updated>
-    </task>
-    <task id="LOCAL-00019" summary="enhancement">
-      <created>1639240205446</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1639240205446</updated>
-    </task>
-    <task id="LOCAL-00020" summary="enhancement">
-      <created>1639240580119</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1639240580119</updated>
-    </task>
-    <task id="LOCAL-00021" summary="enhancement">
-      <created>1639271270235</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1639271270235</updated>
-    </task>
-    <task id="LOCAL-00022" summary="enhancement">
-      <created>1639272785139</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1639272785139</updated>
-    </task>
-    <task id="LOCAL-00023" summary="enhancement">
-      <created>1639273032806</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1639273032806</updated>
-    </task>
-    <task id="LOCAL-00024" summary="enhancement">
-      <created>1639388478676</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1639388478677</updated>
-    </task>
-    <task id="LOCAL-00025" summary="enhancement">
-      <created>1639432306486</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1639432306486</updated>
-    </task>
-    <task id="LOCAL-00026" summary="enhancement">
-      <created>1639609077152</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1639609077152</updated>
-    </task>
-    <task id="LOCAL-00027" summary="enhancement">
-      <created>1639610123985</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1639610123985</updated>
-    </task>
-    <task id="LOCAL-00028" summary="enhancement">
-      <created>1639610783527</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1639610783527</updated>
-    </task>
-    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -535,20 +223,5 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="first version" />
-    <MESSAGE value="initialisation and bootstrap integration" />
-    <MESSAGE value="trick page issue 3-4" />
-    <MESSAGE value="issue 8-9" />
-    <MESSAGE value="ameliorations" />
-    <MESSAGE value="enhancement" />
-    <option name="LAST_COMMIT_MESSAGE" value="enhancement" />
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>

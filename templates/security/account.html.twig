@@ -18,6 +18,17 @@
                 <button class="btn btn-lg btn-primary mt-4">{{ button_label|default('Enregistrer') }}</button>
                 <p class="mt-4"><a href="{{ path('app_reset_password') }}">Modifier le mot de passe</a></p>
                 {{ form_end(form) }}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="text-gray mt-5">Votre compte dispose des droits administrateur.</div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <section class="page-section d-flex align-items-center pt-0">
+        <div class="container">
+            <div class="row text-center w-50 m-auto">
+                <h2 class="h3 mb-5 font-weight-normal">Mes tricks</h2>
+                {{ include('trick/_tricks.html.twig', {'tricks': app.user.tricks, 'colLg': 6}) }}
             </div>
         </div>
     </section>

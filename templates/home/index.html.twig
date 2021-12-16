@@ -29,28 +29,7 @@
                 <h3 class="section-subheading text-muted">Enrichissez SnowTricks en partageant vos propres expériences.</h3>
             </div>
             <div class="row">
-                {% for trick in tricks %}
-                    <div class="col-lg-4 col-sm-6 mb-4">
-                        <div class="trick-item">
-                            <a class="trick-link" href="{{ path('trick', {'slug':trick.slug}) }}">
-                                <img class="img-fluid" src="{{ image(trick.featuredImage) }}" alt="..."/>
-                            </a>
-                            <div class="trick-caption">
-                                <div class="trick-caption-heading d-inline-flex">
-                                    {{ trick.title }}
-                                    {% if app.user %}
-                                        <div class="ms-3">
-                                            <a href="{{ path('trick_edit', {'slug':trick.slug}) }}">
-                                                <i class="far fa-edit"></i></a>
-                                            {{ include('trick/_trick_delete_form.html.twig') }}
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                <div class="trick-caption-subheading text-muted">{{ trick.description }}</div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
+                {{ include('trick/_tricks.html.twig') }}
                 {{ include('components/_pagination.html.twig', {'pagination': paginationTricks}) }}
             </div>
         </div>

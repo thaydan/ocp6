@@ -9,9 +9,9 @@ use App\Entity\TrickImage;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Faker;
 
 class TrickFixtures extends Fixture
 {
@@ -28,6 +28,8 @@ class TrickFixtures extends Fixture
     {
         $faker = Faker\Factory::create('fr_FR');
         $tricks = [];
+        $groups = [];
+        $users = [];
 
         $tricksFixtures = [
             [
@@ -80,10 +82,30 @@ class TrickFixtures extends Fixture
             ],
         ];
 
-        $groups = [];
         $groupsFixtures = ['Grabs', 'Rotations', 'Flips', 'Rotations désaxées', 'Slides', 'One foot', 'Old school'];
 
-        // add groups and linked tricks
+
+        // add users
+        for ($i = 0; $i < 20; $i++) {
+            $user = new User();
+            $user->setEmail($faker->email)
+                ->setPassword($this->userPasswordHasher->hashPassword($user, "demo"))
+                ->setFirstName($faker->firstName)
+                ->setLastName($faker->lastName)
+                ->setUsername($faker->firstName)
+                ->setAccountConfirmed(true);
+            if ($i == 0) {
+                $user->setEmail('demo@gmail.com')
+                    ->setRoles(['ROLE_ADMIN']);
+            }
+
+            $manager->persist($user);
+
+            $users[] = $user;
+        }
+
+
+        // add groups
         for ($i = 0; $i < count($groupsFixtures); $i++) {
             $group = new Group();
             $group->setTitle($groupsFixtures[$i]);
@@ -109,6 +131,9 @@ class TrickFixtures extends Fixture
             if ($i < count($groups)) {
                 $trick->setGroup($groups[$i]);
             }
+            if ($i < count($users)) {
+                $trick->setUser($users[$i]);
+            }
             $manager->persist($trick);
 
             // add trick images
@@ -130,36 +155,24 @@ class TrickFixtures extends Fixture
         }
 
 
-        // add users and add linked comments
+        // add comments
         for ($i = 0; $i < 20; $i++) {
-            $user = new User();
-            $user->setEmail($faker->email)
-                ->setPassword($this->userPasswordHasher->hashPassword($user, "demo"))
-                ->setFirstName($faker->firstName)
-                ->setLastName($faker->lastName)
-                ->setUsername($faker->firstName)
-                ->setAccountConfirmed(true);
-            if($i == 0) {
-                $user->setEmail('demo@gmail.com');
-            }
-
             $comment1 = (new Comment())
                 ->setComment($faker->realText(rand(40, 150)))
                 ->setCreatedAt(new \DateTimeImmutable())
                 ->setTrick($tricks[0])
-                ->setUser($user);
+                ->setUser($users[$i]);
             $comment2 = (new Comment())
                 ->setComment($faker->realText(rand(40, 150)))
                 ->setCreatedAt(new \DateTimeImmutable())
                 ->setTrick($tricks[1])
-                ->setUser($user);
+                ->setUser($users[$i]);
             $comment3 = (new Comment())
                 ->setComment($faker->realText(rand(40, 150)))
                 ->setCreatedAt(new \DateTimeImmutable())
-                ->setTrick($tricks[3])
-                ->setUser($user);
+                ->setTrick($tricks[2])
+                ->setUser($users[$i]);
 
-            $manager->persist($user);
             $manager->persist($comment1);
             $manager->persist($comment2);
             $manager->persist($comment3);

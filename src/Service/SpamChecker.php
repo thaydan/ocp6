@@ -14,11 +14,11 @@ class SpamChecker extends AbstractController
     private $endpoint;
     private ?Request $request;
 
-    public function __construct(RequestStack $requestStack, HttpClientInterface $client)
+    public function __construct(RequestStack $requestStack, HttpClientInterface $client, $akismetKey)
     {
         $this->request = $requestStack->getCurrentRequest();
         $this->client = $client;
-        $this->endpoint = sprintf('https://%s.rest.akismet.com/1.1/comment-check', $this->getParameter('app.akismetKey'));
+        $this->endpoint = sprintf('https://%s.rest.akismet.com/1.1/comment-check', $akismetKey);
     }
 
     /**

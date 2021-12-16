@@ -34,13 +34,6 @@ class TrickImage extends AUploadEntity
      */
     private $trick;
 
-    private string $uploadDirectory;
-
-    public function __construct(string $uploadDirectory)
-    {
-        $this->uploadDirectory = $uploadDirectory;
-    }
-
     public function __toString()
     {
         return $this->filename;
@@ -66,11 +59,7 @@ class TrickImage extends AUploadEntity
     public function setTrick(?Trick $trick): self
     {
         $this->trick = $trick;
-        return $this;
-    }
 
-    public function getUploadDirectory(): string
-    {
-        return $this->uploadDirectory;
+        return $this;
     }
 }

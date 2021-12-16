@@ -82,6 +82,11 @@ class Trick
      */
     private $group;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tricks")
+     */
+    private $user;
+
 
     public function __construct()
     {
@@ -271,6 +276,18 @@ class Trick
     public function setGroup(Group $group): self
     {
         $this->group = $group;
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
         return $this;
     }
 }

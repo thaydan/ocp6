@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Trick;
+use App\Form\CommentAddFormType;
 use App\Form\TrickType;
 use App\Repository\CommentRepository;
 use App\Service\SpamChecker;
@@ -27,12 +28,18 @@ class TrickController extends AbstractController
     public function edit(Request $request, EntityManagerInterface $manager, Trick $trick = null): Response
     {
         $routeName = $request->attributes->get('_route');
-        if ($routeName == 'trick_edit' && !$trick) {
-            return $this->redirectToRoute('home');
+        if ($routeName == 'trick_edit') {
+            if (!$trick) {
+                return $this->redirectToRoute('home');
+            }
+            if ($trick->getUser() !== $this->getUser() and !$this->isGranted('ROLE_ADMIN')) {
+                throw $this->createAccessDeniedException();
+            }
         }
 
         if (!$trick) {
             $trick = new Trick();
+            $trick->setUser($this->getUser());
         }
 
         $originalImages = new ArrayCollection();
@@ -103,7 +110,7 @@ class TrickController extends AbstractController
      */
     public function trick(
         Request     $request, Trick $trick, EntityManagerInterface $manager,
-        SpamChecker $spamChecker, CommentRepository $commentRepository): Response
+        SpamChecker $spamChecker, $tab = null, $pageNumber = 1, CommentRepository $commentRepository): Response
     {
         $tabs = [
             'gallery' => ['active' => false],
@@ -111,7 +118,6 @@ class TrickController extends AbstractController
             'chat' => ['active' => false]
         ];
         $activeTab = 'gallery';
-        $tab = $this->getParameter('tab');
         if ($tab === 'informations' or $tab === 'chat') {
             $activeTab = $tab;
         }
@@ -119,18 +125,10 @@ class TrickController extends AbstractController
 
 
         /* form add comment */
+        $newComment = new Comment();
+        $formComment = $this->createForm(CommentAddFormType::class, $newComment);
+        $formComment->handleRequest($request);
         if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-            $newComment = new Comment();
-            $formComment = $this->createFormBuilder($newComment)
-                ->add('comment', TextType::class, [
-                    'label' => false
-                ])
-                ->add('submit', SubmitType::class, [
-                    'label' => 'Envoyer'
-                ])
-                ->getForm();
-            $formComment->handleRequest($request);
-
             if ($formComment->isSubmitted() && $formComment->isValid()) {
                 $newComment->setTrick($trick)
                     ->setCreatedAt(new \DateTimeImmutable())
@@ -150,14 +148,17 @@ class TrickController extends AbstractController
                         'Votre commentaire a été ajouté.'
                     );
                 }
+                unset($newComment);
+                unset($form);
+                $newComment = new Comment();
+                $formComment = $this->createForm(CommentAddFormType::class, $newComment);
             }
-            $formCommentView = $formComment->createView();
         }
         /* end form add comment */
 
         /* comments pagination */
         $paginationComments = [];
-        $paginationComments['pageNumber'] = $this->getParameter('pageNumber');
+        $paginationComments['pageNumber'] = $pageNumber;
         $paginationComments['itemsCount'] = $commentRepository->count(['trick' => $trick]);
         if ($paginationComments['pageNumber'] > 1) {
             $paginationComments['linkPrevious'] = $this->generateUrl('trick', [
@@ -177,7 +178,7 @@ class TrickController extends AbstractController
         $comments = $commentRepository->findBy(['trick' => $trick], ['createdAt' => 'DESC'], 10, ($paginationComments['pageNumber'] - 1) * 10);
 
         return $this->render('trick/trick.html.twig', [
-            'formComment' => $formCommentView ?? null,
+            'formComment' => $formComment->createView(),
             'comments' => $comments,
             'paginationComments' => $paginationComments,
             'trick' => $trick,
@@ -194,6 +195,9 @@ class TrickController extends AbstractController
      */
     public function delete(Request $request, Trick $trick): Response
     {
+        if ($trick->getUser() !== $this->getUser() and !$this->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
         if ($this->isCsrfTokenValid('delete' . $trick->getSlug(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($trick);

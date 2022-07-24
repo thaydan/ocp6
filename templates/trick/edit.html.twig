@@ -20,6 +20,9 @@
     <!-- Services-->
     <section class="page-section pt-0">
         <div class="container">
+            {{ form_start(form) }}
+            {{ form_row(form.title) }}
+            {{ form_row(form.slug) }}
             {{ form_row(form.description) }}
             {% if form.featuredImage is defined %}
                 {{ form_row(form.featuredImage) }}

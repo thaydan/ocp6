@@ -2,27 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="517f690b-6962-4563-aa72-4edaaeb39790" name="Changes" comment="enhancement">
-      <change afterPath="$PROJECT_DIR$/src/Form/CommentAddFormType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/trick/_tricks.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ocp6-dev.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ocp6-dev.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/symfony2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/symfony2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/custom-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/custom-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TrickController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TrickController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/TrickFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/TrickFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Trick.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Trick.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/TrickImage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/TrickImage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Upload/IUploadEntity.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Upload/IUploadEntity.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/SpamChecker.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/SpamChecker.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/home/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/security/account.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/account.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/trick/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trick/edit.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,10 +14,15 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable path="composer" />
+    </execution>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -180,13 +168,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/uploads" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="vue.rearranger.settings.migration" value="true" />
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/romain/PhpstormProjects/sbd-platform-sf&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tests" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml.dist" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -204,6 +197,40 @@
       <updated>1639616735563</updated>
       <workItem from="1639616738152" duration="704000" />
       <workItem from="1639644825537" duration="9185000" />
+      <workItem from="1645891995730" duration="1261000" />
+      <workItem from="1645894629397" duration="317000" />
+      <workItem from="1645897736551" duration="310000" />
+      <workItem from="1646171082207" duration="405000" />
+      <workItem from="1646945434521" duration="4494000" />
+      <workItem from="1647185940179" duration="55000" />
+      <workItem from="1647187793639" duration="789000" />
+      <workItem from="1647533693369" duration="283000" />
+      <workItem from="1648132467128" duration="1441000" />
+      <workItem from="1648221362595" duration="16000" />
+      <workItem from="1649065288751" duration="123000" />
+      <workItem from="1649703438345" duration="22000" />
+      <workItem from="1649703469795" duration="604000" />
+      <workItem from="1651307976860" duration="27000" />
+      <workItem from="1651308250348" duration="139000" />
+      <workItem from="1651567623474" duration="2907000" />
+      <workItem from="1651576149522" duration="79000" />
+      <workItem from="1651763962519" duration="687000" />
+      <workItem from="1652085662695" duration="623000" />
+      <workItem from="1652095534678" duration="58000" />
+      <workItem from="1652192023746" duration="958000" />
+      <workItem from="1652266518499" duration="1298000" />
+      <workItem from="1652272960429" duration="10000" />
+      <workItem from="1653376778552" duration="139000" />
+      <workItem from="1653904576910" duration="923000" />
+      <workItem from="1657028059041" duration="1860000" />
+      <workItem from="1657115871467" duration="677000" />
+      <workItem from="1657616777402" duration="1283000" />
+      <workItem from="1657635837676" duration="8000" />
+      <workItem from="1657635911118" duration="42000" />
+      <workItem from="1657988909813" duration="695000" />
+      <workItem from="1658418131752" duration="20000" />
+      <workItem from="1658418159504" duration="472000" />
+      <workItem from="1658615803601" duration="5070000" />
     </task>
     <task id="LOCAL-00001" summary="enhancement">
       <created>1639654466682</created>

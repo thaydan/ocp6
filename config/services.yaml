@@ -47,7 +47,7 @@ services:
     App\Listener\Doctrine\UploaderListener:
         tags:
             - { name: 'doctrine.event_listener', event: 'prePersist' }
-            -
+
     App\Listener\Doctrine\TrickVideoListener:
         tags:
             - { name: 'doctrine.event_listener', event: 'prePersist' }

@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="517f690b-6962-4563-aa72-4edaaeb39790" name="Changes" comment="enhancement">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/trick/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trick/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/TrickType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/TrickType.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +19,17 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="550b3630-db84-4445-ba5d-1649110f0133" />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="550b3630-db84-4445-ba5d-1649110f0133" />
+        <option name="url" value="https://github.com/thaydan/ocp6.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -170,6 +180,8 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/romain/PhpstormProjects/sbd-platform-sf&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
@@ -231,6 +243,23 @@
       <workItem from="1658418131752" duration="20000" />
       <workItem from="1658418159504" duration="472000" />
       <workItem from="1658615803601" duration="5070000" />
+      <workItem from="1658650681266" duration="337000" />
+      <workItem from="1658651765048" duration="223000" />
+      <workItem from="1658652905000" duration="201000" />
+      <workItem from="1658928511920" duration="187000" />
+      <workItem from="1658928753678" duration="310000" />
+      <workItem from="1661676397200" duration="32000" />
+      <workItem from="1662200343814" duration="69000" />
+      <workItem from="1662569379964" duration="189000" />
+      <workItem from="1664530055407" duration="1810000" />
+      <workItem from="1667468704384" duration="131000" />
+      <workItem from="1667468862169" duration="390000" />
+      <workItem from="1670433307043" duration="48000" />
+      <workItem from="1671458856618" duration="57000" />
+      <workItem from="1671458966854" duration="4000" />
+      <workItem from="1672934361839" duration="220000" />
+      <workItem from="1674537529616" duration="8000" />
+      <workItem from="1676910449912" duration="240000" />
     </task>
     <task id="LOCAL-00001" summary="enhancement">
       <created>1639654466682</created>
@@ -239,7 +268,21 @@
       <option name="project" value="LOCAL" />
       <updated>1639654466682</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="enhancement">
+      <created>1658650696084</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1658650696084</updated>
+    </task>
+    <task id="LOCAL-00003" summary="enhancement">
+      <created>1658650854670</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1658650854670</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

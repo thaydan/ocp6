@@ -105,8 +105,8 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/trick/{slug}", name="trick")
-     * @Route("/trick/{slug}/{tab}", name="trick")
-     * @Route("/trick/{slug}/{tab}/{pageNumber}", name="trick")
+     * @Route("/trick/{slug}/{tab}", name="trick_tab")
+     * @Route("/trick/{slug}/{tab}/{pageNumber}", name="trick_tab_pagenumber")
      */
     public function trick(
         Request     $request, Trick $trick, EntityManagerInterface $manager,

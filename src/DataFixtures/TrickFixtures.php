@@ -95,7 +95,7 @@ class TrickFixtures extends Fixture
                 ->setUsername($faker->firstName)
                 ->setAccountConfirmed(true);
             if ($i == 0) {
-                $user->setEmail('demo@gmail.com')
+                $user->setEmail('demo@demo')
                     ->setRoles(['ROLE_ADMIN']);
             }
 

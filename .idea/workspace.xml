@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="517f690b-6962-4563-aa72-4edaaeb39790" name="Changes" comment="enhancement">
+      <change afterPath="$PROJECT_DIR$/templates/security/sign_up_disabled.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/TrickType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/TrickType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +39,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/bin/php">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/sebastian/exporter" />
       <path value="$PROJECT_DIR$/vendor/sebastian/cli-parser" />
@@ -173,21 +178,28 @@
       <path value="$PROJECT_DIR$/vendor/firebase/php-jwt" />
     </include_path>
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="22LVDGz1QZJgb6vUJTGy6jvB5KK" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/romain/PhpstormProjects/sbd-platform-sf&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/romain/PhpstormProjects/ocp6/templates/security",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/tests" />
@@ -260,6 +272,9 @@
       <workItem from="1672934361839" duration="220000" />
       <workItem from="1674537529616" duration="8000" />
       <workItem from="1676910449912" duration="240000" />
+      <workItem from="1693478697619" duration="2247000" />
+      <workItem from="1693483362420" duration="268000" />
+      <workItem from="1693483766411" duration="364000" />
     </task>
     <task id="LOCAL-00001" summary="enhancement">
       <created>1639654466682</created>
@@ -282,7 +297,15 @@
       <option name="project" value="LOCAL" />
       <updated>1658650854670</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="enhancement">
+      <option name="closed" value="true" />
+      <created>1693478875982</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1693478875982</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

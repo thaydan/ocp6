@@ -18,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
@@ -63,9 +64,13 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/sign-up", name="app_sign_up")
+     * @throws TransportExceptionInterface
      */
     public function signUp(Request $request, EntityManagerInterface $manager, MailerInterface $mailer): Response
     {
+        // Enable this line to disable sign up
+        return $this->render('security/sign_up_disabled.html.twig');
+
         if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             return $this->redirectToRoute('home');
         }

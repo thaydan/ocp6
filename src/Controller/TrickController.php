@@ -104,7 +104,7 @@ class TrickController extends AbstractController
 
 
     /**
-     * @Route("/trick/{slug}", name="trick")
+     * @Route("/trick/{slug}", name="trick", defaults={"tab": "gallery", "pageNumber": 1})
      * @Route("/trick/{slug}/{tab}", name="trick_tab")
      * @Route("/trick/{slug}/{tab}/{pageNumber}", name="trick_tab_pagenumber")
      */

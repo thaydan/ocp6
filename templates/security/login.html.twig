@@ -6,32 +6,31 @@
     <section class="page-section d-flex align-items-center">
         <div class="container">
             <div class="row text-center w-50 m-auto">
-{#                <form method="post" id="login-form">#}
-{#                    {% if error %}#}
-{#                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
-{#                    {% endif %}#}
+                <form method="post" id="login-form">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
 
-{#                    <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>#}
-{#                    <label for="inputEmail">E-mail</label>#}
-{#                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>#}
-{#                    <label for="inputPassword">Mot de passe</label>#}
-{#                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>#}
+                    <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
+                    <label for="inputEmail">E-mail</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                    <label for="inputPassword">Mot de passe</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-{#                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">#}
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-{#                    <div class="checkbox mb-3">#}
-{#                        <label>#}
-{#                            <input type="checkbox" name="_remember_me"> Se rappeler de moi#}
-{#                        </label>#}
-{#                    </div>#}
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" name="_remember_me"> Se rappeler de moi
+                        </label>
+                    </div>
 
-{#                    <button class="btn btn-lg btn-primary mt-4" type="submit">Se connecter</button>#}
-{#                    <p class="mt-5">#}
-{#                        <a href="{{ path('app_sign_up') }}">S'inscrire</a><br>#}
-{#                        <a href="{{ path('app_lost_password') }}">Mot de passe oublié</a>#}
-{#                    </p>#}
-{#                </form>#}
-                Les inscriptions sont désactivées.
+                    <button class="btn btn-lg btn-primary mt-4" type="submit">Se connecter</button>
+                    <p class="mt-5">
+                        <a href="{{ path('app_sign_up') }}">S'inscrire</a><br>
+                        <a href="{{ path('app_lost_password') }}">Mot de passe oublié</a>
+                    </p>
+                </form>
             </div>
         </div>
     </section>
